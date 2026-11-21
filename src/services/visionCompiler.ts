@@ -172,7 +172,7 @@ export function normalizeCompiledResult(raw: unknown, physics?: PhysicsResult): 
   const root = asObj(raw);
   const arFlag = physics?.closestStandardRatio?.trim() ?? '';
   const ratioText =
-    arFlag.replace(/^--ar\s+/i, '').trim() || physics?.aspectRatio?.trim() || '';
+    physics?.aspectRatio?.trim() || arFlag.replace(/^--ar\s+/i, '').trim() || '';
 
   // Support legacy 4-tab schema seamlessly when loading older IndexedDB records
   if (!root.json_prompt && (root.taxonomy || root.slot_template || root.compiled_prompts)) {

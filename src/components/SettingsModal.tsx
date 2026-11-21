@@ -99,9 +99,29 @@ export function SettingsModal({
   const [imgModelError, setImgModelError] = useState('');
   const [showApiKey, setShowApiKey] = useState(false);
   const [showImgApiKey, setShowImgApiKey] = useState(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
 
-  const set = (patch: Partial<ExtensionSettings>) =>
+  const isDirty =
+    local.baseUrl.trim() !== (settings.baseUrl ?? '').trim() ||
+    local.apiKey.trim() !== (settings.apiKey ?? '').trim() ||
+    local.model.trim() !== (settings.model ?? '').trim() ||
+    local.imageGenBaseUrl.trim() !== (settings.imageGenBaseUrl ?? '').trim() ||
+    local.imageGenApiKey.trim() !== (settings.imageGenApiKey ?? '').trim() ||
+    local.imageGenModel.trim() !== (settings.imageGenModel ?? '').trim() ||
+    local.triggerMode !== settings.triggerMode;
+
+  const set = (patch: Partial<ExtensionSettings>) => {
+    setConfirmDiscard(false);
     setLocal((prev) => ({ ...prev, ...patch }));
+  };
+
+  const requestClose = () => {
+    if (isDirty) {
+      setConfirmDiscard(true);
+      return;
+    }
+    onClose();
+  };
 
   const fetchModels = async () => {
     setFetchingModels(true);
@@ -186,12 +206,33 @@ export function SettingsModal({
           <span className="text-2xs font-bold tracking-widest text-paper">BYOK SETTINGS</span>
           <button
             type="button"
-            onClick={onClose}
+            onClick={requestClose}
             className="border border-ink px-1.5 py-0.5 text-2xs text-mute hover:border-paper hover:text-paper"
           >
             ✕
           </button>
         </div>
+        {confirmDiscard && (
+          <div className="flex shrink-0 items-center justify-between gap-2 border-b border-[#EF4444]/60 bg-[#EF4444]/10 px-3 py-1.5 text-2xs">
+            <span className="text-[#EF4444]">有未保存的设置修改，确定放弃并关闭吗？</span>
+            <div className="flex shrink-0 items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setConfirmDiscard(false)}
+                className="border border-ink px-1.5 py-0.5 text-mute hover:border-paper hover:text-paper"
+              >
+                继续编辑
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                className="border border-[#EF4444] bg-[#EF4444]/20 px-1.5 py-0.5 font-bold text-[#EF4444]"
+              >
+                放弃并关闭
+              </button>
+            </div>
+          </div>
+        )}
         <div className="vrc-scroll min-h-0 flex-1 space-y-3 overflow-y-auto p-3">
           <div>
             <label className={LABEL_CLS}>BASE URL · 接口地址（OpenAI 兼容格式）</label>

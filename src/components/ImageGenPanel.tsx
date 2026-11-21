@@ -8,6 +8,7 @@ export function ImageGenPanel({
   assetNamePrefix = '人物资产',
   onSaveAsset,
   onNotify,
+  onGenerated,
   referenceDataUrl,
   referenceSummary,
 }: {
@@ -16,6 +17,8 @@ export function ImageGenPanel({
   assetNamePrefix?: string;
   onSaveAsset: (asset: { name: string; dataUrl: string; prompt: string }) => Promise<void>;
   onNotify: (msg: string) => void;
+  /** Called once per successful generation so the caller can persist it to history. */
+  onGenerated?: (img: { dataUrl: string; prompt: string; referenceSummary: string }) => Promise<void>;
   referenceDataUrl?: string;
   referenceSummary: string;
 }) {
@@ -34,8 +37,9 @@ export function ImageGenPanel({
     setLoading(true);
     setError('');
     setSavedCurrent(false);
+    let dataUrl = '';
     try {
-      const dataUrl = await generateImageViaBackground({
+      dataUrl = await generateImageViaBackground({
         prompt,
         referenceDataUrl,
       });
@@ -49,6 +53,14 @@ export function ImageGenPanel({
       onNotify(`✗ ${msg}`);
     } finally {
       setLoading(false);
+    }
+    if (dataUrl && onGenerated) {
+      try {
+        await onGenerated({ dataUrl, prompt, referenceSummary });
+      } catch (e) {
+        console.warn('[VRC] Failed to persist generated image', e);
+        onNotify('✗ 生成图片未能写入历史记录');
+      }
     }
   };
 

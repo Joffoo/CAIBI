@@ -1,4 +1,10 @@
-import type { CharacterAsset, ExtensionSettings, HistoryRecord, PhysicsResult } from '../utils/types';
+import type {
+  CharacterAsset,
+  ExtensionSettings,
+  GeneratedImage,
+  HistoryRecord,
+  PhysicsResult,
+} from '../utils/types';
 import { arrayBufferToBase64 } from '../utils/base64';
 import { loadSettings } from '../services/settings';
 import { callVisionApi, fetchAvailableModels } from '../services/visionCompiler';
@@ -6,11 +12,15 @@ import { callImageGenApi } from '../services/imageGenerator';
 import {
   dbAddAsset,
   dbAddRecord,
+  dbAppendGeneratedImage,
   dbClearRecords,
   dbDeleteAsset,
+  dbDeleteGeneratedImage,
   dbDeleteRecord,
   dbListAssets,
   dbListRecords,
+  dbReorderAssets,
+  dbUpdateAsset,
 } from '../services/db';
 
 /**
@@ -110,6 +120,20 @@ export default defineBackground(() => {
       return true;
     }
 
+    if (msg?.type === 'DB_APPEND_GEN') {
+      dbAppendGeneratedImage(String(msg.recordId ?? ''), msg.image as GeneratedImage)
+        .then((record) => sendResponse({ ok: true, record }))
+        .catch((e: unknown) => sendResponse({ ok: false, error: errorMessage(e) }));
+      return true;
+    }
+
+    if (msg?.type === 'DB_DELETE_GEN') {
+      dbDeleteGeneratedImage(String(msg.recordId ?? ''), String(msg.imageId ?? ''))
+        .then((record) => sendResponse({ ok: true, record }))
+        .catch((e: unknown) => sendResponse({ ok: false, error: errorMessage(e) }));
+      return true;
+    }
+
     if (msg?.type === 'ASSET_ADD') {
       dbAddAsset(msg.asset as CharacterAsset)
         .then(() => sendResponse({ ok: true }))
@@ -126,6 +150,26 @@ export default defineBackground(() => {
 
     if (msg?.type === 'ASSET_DELETE') {
       dbDeleteAsset(String(msg.id ?? ''))
+        .then(() => sendResponse({ ok: true }))
+        .catch((e: unknown) => sendResponse({ ok: false, error: errorMessage(e) }));
+      return true;
+    }
+
+    if (msg?.type === 'ASSET_UPDATE') {
+      dbUpdateAsset(
+        String(msg.id ?? ''),
+        (msg.patch && typeof msg.patch === 'object' ? msg.patch : {}) as Partial<
+          Pick<CharacterAsset, 'name' | 'starred' | 'sortOrder'>
+        >,
+      )
+        .then(() => sendResponse({ ok: true }))
+        .catch((e: unknown) => sendResponse({ ok: false, error: errorMessage(e) }));
+      return true;
+    }
+
+    if (msg?.type === 'ASSET_REORDER') {
+      const ids = Array.isArray(msg.orderedIds) ? msg.orderedIds.map(String) : [];
+      dbReorderAssets(ids)
         .then(() => sendResponse({ ok: true }))
         .catch((e: unknown) => sendResponse({ ok: false, error: errorMessage(e) }));
       return true;

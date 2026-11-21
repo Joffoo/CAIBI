@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
   CharacterAsset,
   ExtensionSettings,
+  GeneratedImage,
+  GeneratedImageSource,
   HistoryRecord,
 } from '../utils/types';
 import { DEFAULT_SETTINGS } from '../utils/types';
@@ -18,7 +20,17 @@ import {
   generateImageViaBackground,
   isImageGenConfigured,
 } from '../services/imageGenerator';
-import { addAsset, addRecord, deleteAsset, listAssets, uuid } from '../services/db';
+import {
+  addAsset,
+  addRecord,
+  appendGeneratedImage,
+  deleteAsset,
+  deleteGeneratedImage,
+  listAssets,
+  reorderAssets,
+  updateAsset,
+  uuid,
+} from '../services/db';
 import { loadSettings, watchSettings } from '../services/settings';
 import { PhysicsBar } from './PhysicsBar';
 import { HudWorkspace } from './HudWorkspace';
@@ -129,6 +141,88 @@ export function HudApp() {
       setAssets((prev) => prev.filter((a) => a.id !== id));
       setExtractedAsset((prev) => (prev?.id === id ? null : prev));
       notify('✓ 已删除人物资产');
+    },
+    [notify],
+  );
+
+  const handleToggleStarAsset = useCallback(
+    async (id: string) => {
+      const target = assets.find((a) => a.id === id);
+      if (!target) return;
+      const nextStarred = !target.starred;
+      let nextList: CharacterAsset[];
+      if (nextStarred) {
+        const updated = { ...target, starred: true };
+        nextList = [updated, ...assets.filter((a) => a.id !== id)];
+      } else {
+        nextList = assets.map((a) => (a.id === id ? { ...a, starred: false } : a));
+      }
+      const normalized = nextList.map((a, idx) => ({ ...a, sortOrder: idx }));
+      setAssets(normalized);
+      await updateAsset(id, { starred: nextStarred });
+      if (nextStarred) {
+        await reorderAssets(normalized.map((a) => a.id));
+      }
+      notify(nextStarred ? '★ 已加星并置顶到最前' : '☆ 已取消星标');
+    },
+    [assets, notify],
+  );
+
+  const handleRenameAsset = useCallback(
+    async (id: string, name: string) => {
+      const trimmed = name.trim();
+      if (!trimmed) return;
+      setAssets((prev) => prev.map((a) => (a.id === id ? { ...a, name: trimmed } : a)));
+      await updateAsset(id, { name: trimmed });
+      notify('✓ 已重命名人物资产');
+    },
+    [notify],
+  );
+
+  const handleReorderAssets = useCallback(async (orderedIds: string[]) => {
+    setAssets((prev) => {
+      const map = new Map(prev.map((a) => [a.id, a]));
+      const reordered = orderedIds
+        .map((id) => map.get(id))
+        .filter((a): a is CharacterAsset => Boolean(a));
+      const remaining = prev.filter((a) => !orderedIds.includes(a.id));
+      return [...reordered, ...remaining].map((a, idx) => ({ ...a, sortOrder: idx }));
+    });
+    await reorderAssets(orderedIds);
+  }, []);
+
+  const handleGeneratedImage = useCallback(
+    async (
+      recordId: string,
+      img: { dataUrl: string; prompt: string; referenceSummary: string; source: GeneratedImageSource },
+    ) => {
+      const image: GeneratedImage = { id: uuid(), createdAt: Date.now(), ...img };
+      const updated = await appendGeneratedImage(recordId, image);
+      if (!updated) {
+        notify('✗ 生成图片未能写入历史记录（记录可能已被删除）');
+        return;
+      }
+      setRecord((prev) =>
+        prev && prev.id === recordId ? { ...prev, generatedImages: updated.generatedImages } : prev,
+      );
+    },
+    [notify],
+  );
+
+  const handleDeleteGeneratedImage = useCallback(
+    async (recordId: string, imageId: string) => {
+      const updated = await deleteGeneratedImage(recordId, imageId);
+      setRecord((prev) =>
+        prev && prev.id === recordId
+          ? {
+              ...prev,
+              generatedImages: updated
+                ? updated.generatedImages
+                : (prev.generatedImages ?? []).filter((g) => g.id !== imageId),
+            }
+          : prev,
+      );
+      notify(updated ? '✓ 已删除该生成图片' : '✗ 删除失败（记录不存在）');
     },
     [notify],
   );
@@ -802,6 +896,7 @@ export function HudApp() {
 
         {record?.result && status === 'ready' && (
           <HudWorkspace
+            key={record.id}
             record={record}
             onCopied={notify}
             imageGenEnabled={imageGenEnabled}
@@ -809,6 +904,8 @@ export function HudApp() {
             assets={assets}
             onSaveAsset={handleSaveAsset}
             onDeleteAsset={handleDeleteAsset}
+            onGeneratedImage={handleGeneratedImage}
+            onDeleteGeneratedImage={handleDeleteGeneratedImage}
             onExtractCharacter={() => void extractCharacterSheet('standard')}
             onExtractAnimeToReal={() => void extractCharacterSheet('anime2real')}
             extractingMode={extractingMode}
@@ -820,7 +917,36 @@ export function HudApp() {
         {historyOpen && (
           <HistoryDrawer
             assets={assets}
+            busy={status === 'compiling' || extractingMode !== null}
+            onSaveAsset={handleSaveAsset}
             onDeleteAsset={handleDeleteAsset}
+            onToggleStarAsset={handleToggleStarAsset}
+            onRenameAsset={handleRenameAsset}
+            onReorderAssets={handleReorderAssets}
+            onRecordDeleted={(deletedId) => {
+              if (record?.id === deletedId) {
+                setRecord(null);
+                setStatus('idle');
+                setSourceData(null);
+                setExtractedAsset(null);
+                setExtractError('');
+              }
+            }}
+            onCleared={() => {
+              setRecord(null);
+              setStatus('idle');
+              setSourceData(null);
+              setExtractedAsset(null);
+              setExtractError('');
+            }}
+            onGeneratedDeleted={(recordId, updated) => {
+              if (!updated) return;
+              setRecord((prev) =>
+                prev && prev.id === recordId
+                  ? { ...prev, generatedImages: updated.generatedImages }
+                  : prev,
+              );
+            }}
             onSelect={(r) => {
               const jobId = ++jobIdRef.current;
               stopTimersAndStream();

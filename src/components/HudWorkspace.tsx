@@ -1,9 +1,44 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CharacterAsset, CompiledResult, HistoryRecord } from '../utils/types';
+import type {
+  CharacterAsset,
+  CompiledResult,
+  GeneratedImageSource,
+  HistoryRecord,
+} from '../utils/types';
 import { copyText } from '../utils/clipboard';
+import { inferExtFromDataUrl } from '../utils/base64';
 import { exportToObsidianMarkdown } from '../services/db';
-import { CopyButton, ExtractedAssetPreview, PromptBox, SectionLabel } from './ui';
+import { ConfirmDeleteButton, CopyButton, ExtractedAssetPreview, PromptBox, SectionLabel } from './ui';
 import { ImageGenPanel } from './ImageGenPanel';
+
+const PRESET_RATIOS = ['1:1', '4:3', '3:4', '16:9', '9:16'] as const;
+
+function toJsonMap(jp: CompiledResult['json_prompt'] | undefined): Record<string, string> {
+  if (!jp) return {};
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(jp)) {
+    if (v !== undefined && v !== null) out[k] = String(v);
+  }
+  return out;
+}
+
+function applyAspectRatioToShort(shortText: string, ratio: string, prevRatio: string): string {
+  if (!ratio) return shortText;
+  if (/画幅比例\s*\d+:\d+/.test(shortText)) {
+    return shortText.replace(/画幅比例\s*\d+:\d+/g, `画幅比例 ${ratio}`);
+  }
+  if (/--ar\s+\d+:\d+/i.test(shortText)) {
+    return shortText.replace(/--ar\s+\d+:\d+/gi, `--ar ${ratio}`);
+  }
+  if (prevRatio) {
+    const esc = prevRatio.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`(^|[^0-9:])${esc}(?=$|[^0-9:])`, 'g');
+    if (re.test(shortText)) {
+      return shortText.replace(re, `$1${ratio}`);
+    }
+  }
+  return shortText ? `${shortText}，画幅比例 ${ratio}` : `画幅比例 ${ratio}`;
+}
 
 export function HudWorkspace({
   record,
@@ -13,6 +48,8 @@ export function HudWorkspace({
   assets,
   onSaveAsset,
   onDeleteAsset,
+  onGeneratedImage,
+  onDeleteGeneratedImage,
   onExtractCharacter,
   onExtractAnimeToReal,
   extractingMode,
@@ -26,6 +63,11 @@ export function HudWorkspace({
   assets: CharacterAsset[];
   onSaveAsset: (asset: { name: string; dataUrl: string; prompt: string }) => Promise<void>;
   onDeleteAsset: (id: string) => Promise<void>;
+  onGeneratedImage: (
+    recordId: string,
+    img: { dataUrl: string; prompt: string; referenceSummary: string; source: GeneratedImageSource },
+  ) => Promise<void>;
+  onDeleteGeneratedImage: (recordId: string, imageId: string) => Promise<void>;
   onExtractCharacter?: () => void;
   onExtractAnimeToReal?: () => void;
   extractingMode?: 'standard' | 'anime2real' | null;
@@ -38,18 +80,36 @@ export function HudWorkspace({
   const [selectedAssetId, setSelectedAssetId] = useState<string>('');
   const [uploadedRef, setUploadedRef] = useState<string>('');
   const refFileRef = useRef<HTMLInputElement | null>(null);
+  const assetUploadRef = useRef<HTMLInputElement | null>(null);
 
-  const [editedJsonText, setEditedJsonText] = useState(() =>
-    result ? JSON.stringify(result.json_prompt, null, 2) : '',
+  const originalRatio =
+    record.physics?.aspectRatio?.trim() || result?.json_prompt?.aspect_ratio?.trim() || '';
+  const [aspectRatio, setAspectRatio] = useState(originalRatio);
+  const [editedJsonObj, setEditedJsonObj] = useState<Record<string, string>>(() =>
+    toJsonMap(result?.json_prompt),
   );
   const [editedShortPrompt, setEditedShortPrompt] = useState(() => result?.short_prompt ?? '');
   const [editingJson, setEditingJson] = useState(false);
 
   useEffect(() => {
-    setEditedJsonText(result ? JSON.stringify(result.json_prompt, null, 2) : '');
+    setAspectRatio(
+      record.physics?.aspectRatio?.trim() || result?.json_prompt?.aspect_ratio?.trim() || '',
+    );
+    setEditedJsonObj(toJsonMap(result?.json_prompt));
     setEditedShortPrompt(result?.short_prompt ?? '');
     setEditingJson(false);
-  }, [record.id, result]);
+  }, [record.id, record.physics?.aspectRatio, result]);
+
+  const editedJsonText = JSON.stringify(editedJsonObj, null, 2);
+
+  const updateAspectRatio = (nextRaw: string) => {
+    const prev = aspectRatio.trim();
+    setAspectRatio(nextRaw);
+    const next = nextRaw.trim();
+    if (!next) return;
+    setEditedJsonObj((prevObj) => ({ ...prevObj, aspect_ratio: next }));
+    setEditedShortPrompt((s) => applyAspectRatioToShort(s, next, prev));
+  };
 
   useEffect(() => {
     if (refMode === 'asset' && selectedAssetId && !assets.some((a) => a.id === selectedAssetId)) {
@@ -100,6 +160,13 @@ export function HudWorkspace({
     referenceDataUrl: effectiveRef,
     referenceSummary: refSummary,
   };
+  // Capture record.id now: the generation may finish after the user switches records.
+  const recordId = record.id;
+  const makeOnGenerated =
+    (source: GeneratedImageSource) =>
+    (img: { dataUrl: string; prompt: string; referenceSummary: string }) =>
+      onGeneratedImage(recordId, { ...img, source });
+  const generatedImages = record.generatedImages ?? [];
 
   const buildMarkdown = () =>
     exportToObsidianMarkdown(record, {
@@ -234,11 +301,46 @@ export function HudWorkspace({
               <span className="ml-auto text-2xs text-dim">{refSummary}</span>
             </div>
 
-            {assets.length > 0 && (
-              <div>
-                <div className="mb-1 text-2xs text-dim">
-                  从人物资产库挑选垫图（点击选中 / 再次点击取消）：
-                </div>
+            <div>
+              <input
+                ref={assetUploadRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  const baseName = file.name.replace(/\.[^.]+$/, '').trim() || '自定义人物资产';
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    const dataUrl = String(reader.result ?? '');
+                    if (dataUrl) {
+                      void onSaveAsset({
+                        name: baseName,
+                        dataUrl,
+                        prompt: '用户上传人物资产',
+                      });
+                    }
+                  };
+                  reader.readAsDataURL(file);
+                  e.target.value = '';
+                }}
+              />
+              <div className="mb-1 flex items-center justify-between gap-2">
+                <span className="text-2xs text-dim">
+                  {assets.length > 0
+                    ? '从人物资产库挑选垫图（点击选中 / 再次点击取消）：'
+                    : '人物资产库暂无资产，可直接上传：'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => assetUploadRef.current?.click()}
+                  className="shrink-0 border border-ink px-1.5 py-0.5 text-2xs text-mute hover:border-paper hover:text-paper"
+                >
+                  + 上传人物资产
+                </button>
+              </div>
+              {assets.length > 0 && (
                 <div className="vrc-scroll flex gap-1.5 overflow-x-auto pb-1">
                   {assets.map((a) => {
                     const active = refMode === 'asset' && selectedAssetId === a.id;
@@ -267,30 +369,75 @@ export function HudWorkspace({
                           className="h-12 w-full object-cover"
                           draggable={false}
                         />
+                        {a.starred && (
+                          <span
+                            className="absolute left-0.5 top-0.5 bg-obsidian/85 px-0.5 text-[9px] leading-none text-[#EAB308]"
+                            title="已加星置顶"
+                          >
+                            ★
+                          </span>
+                        )}
                         <div className="truncate pt-0.5 text-[9px] text-mute">{a.name}</div>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
+                        <ConfirmDeleteButton
+                          onConfirm={() => {
                             if (active) {
                               setRefMode('none');
                               setSelectedAssetId('');
                             }
-                            void onDeleteAsset(a.id);
+                            return onDeleteAsset(a.id);
                           }}
-                          className="absolute right-0.5 top-0.5 hidden bg-obsidian/90 px-1 text-[9px] text-mute hover:text-[#EF4444] group-hover:block"
                           title="删除该人物资产"
-                        >
-                          ✕
-                        </button>
+                          className="absolute right-0.5 top-0.5 hidden bg-obsidian/90 px-1 text-[9px] text-mute hover:text-[#EF4444] group-hover:block"
+                          confirmClassName="absolute right-0.5 top-0.5 z-10 bg-obsidian/95 text-[9px]"
+                        />
                       </div>
                     );
                   })}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
+
+        {/* Aspect Ratio Control (defaults to original image ratio, editable) */}
+        <div className="flex flex-wrap items-center gap-1 border border-ink bg-panel/40 px-2 py-1.5">
+          <span className="text-2xs text-dim">画幅比例:</span>
+          {originalRatio && (
+            <button
+              type="button"
+              onClick={() => updateAspectRatio(originalRatio)}
+              className={`border px-1.5 py-0.5 text-2xs ${
+                aspectRatio.trim() === originalRatio
+                  ? 'border-paper bg-paper text-obsidian'
+                  : 'border-ink text-mute hover:border-paper'
+              }`}
+            >
+              原图 {originalRatio}
+            </button>
+          )}
+          {PRESET_RATIOS.filter((r) => r !== originalRatio).map((r) => (
+            <button
+              key={r}
+              type="button"
+              onClick={() => updateAspectRatio(r)}
+              className={`border px-1.5 py-0.5 text-2xs ${
+                aspectRatio.trim() === r
+                  ? 'border-paper bg-paper text-obsidian'
+                  : 'border-ink text-mute hover:border-paper'
+              }`}
+            >
+              {r}
+            </button>
+          ))}
+          <input
+            type="text"
+            value={aspectRatio}
+            onChange={(e) => updateAspectRatio(e.target.value)}
+            placeholder="自定义如 21:9"
+            spellCheck={false}
+            className="ml-auto w-20 border border-ink bg-obsidian px-1.5 py-0.5 font-mono text-2xs text-paper placeholder:text-dim focus:border-paper focus:outline-none"
+          />
+        </div>
 
         {/* Block 1: Structured JSON Prompt */}
         <section className="space-y-1.5 border border-ink bg-obsidian p-2.5">
@@ -311,23 +458,41 @@ export function HudWorkspace({
               <CopyButton text={editedJsonText} label="JSON" onCopied={onCopied} />
             </div>
           </div>
-          {editingJson ? (
-            <textarea
-              value={editedJsonText}
-              onChange={(e) => setEditedJsonText(e.target.value)}
-              spellCheck={false}
-              rows={8}
-              className="vrc-scroll max-h-52 w-full resize-y border border-ink bg-panel p-2 font-mono text-[11px] leading-relaxed text-paper focus:border-paper focus:outline-none"
-            />
-          ) : (
-            <pre className="vrc-scroll max-h-52 overflow-auto border border-ink bg-panel p-2 font-mono text-[11px] leading-relaxed text-paper">
-              {editedJsonText}
-            </pre>
-          )}
+          <div className="vrc-scroll max-h-60 overflow-auto border border-ink bg-panel">
+            <table className="w-full border-collapse text-[11px] leading-relaxed">
+              <tbody>
+                {Object.entries(editedJsonObj).map(([k, v]) => (
+                  <tr key={k} className="border-b border-ink/60 last:border-b-0">
+                    <td className="w-32 shrink-0 select-text border-r border-ink/60 px-2 py-1 align-top font-mono text-2xs text-dim break-all">
+                      {k}
+                    </td>
+                    <td className="px-2 py-1 align-top text-paper">
+                      {editingJson ? (
+                        <textarea
+                          value={v}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setEditedJsonObj((prev) => ({ ...prev, [k]: val }));
+                            if (k === 'aspect_ratio') setAspectRatio(val);
+                          }}
+                          spellCheck={false}
+                          rows={v.length > 60 ? 3 : 1}
+                          className="vrc-scroll w-full resize-y border border-ink bg-obsidian px-1.5 py-0.5 text-[11px] leading-relaxed text-paper focus:border-paper focus:outline-none"
+                        />
+                      ) : (
+                        <span className="whitespace-pre-wrap break-words">{v || '—'}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           {imageGenEnabled && (
             <ImageGenPanel
               prompt={editedJsonText}
               promptLabel="按 JSON 提示词生图"
+              onGenerated={makeOnGenerated('json')}
               {...genBaseProps}
             />
           )}
@@ -349,10 +514,53 @@ export function HudWorkspace({
             <ImageGenPanel
               prompt={editedShortPrompt}
               promptLabel="按精简版提示词生图"
+              onGenerated={makeOnGenerated('short')}
               {...genBaseProps}
             />
           )}
         </section>
+
+        {/* Block 3: Images generated from this record's prompts (persisted in history) */}
+        {generatedImages.length > 0 && (
+          <section className="space-y-1.5 border border-ink bg-obsidian p-2.5">
+            <SectionLabel>③ GENERATED · 已生成图片（{generatedImages.length}，已存入历史）</SectionLabel>
+            <div className="vrc-scroll flex gap-1.5 overflow-x-auto pb-1">
+              {generatedImages.map((g) => (
+                <div
+                  key={g.id}
+                  className="group relative w-20 shrink-0 border border-ink p-0.5"
+                  title={`${g.source === 'json' ? 'JSON 提示词' : '精简版提示词'} · ${
+                    g.referenceSummary ?? ''
+                  }\n${new Date(g.createdAt).toLocaleString()}`}
+                >
+                  <img
+                    src={g.dataUrl}
+                    alt="Generated"
+                    className="h-20 w-full cursor-pointer bg-panel object-cover"
+                    draggable={false}
+                    onClick={() => {
+                      const a = document.createElement('a');
+                      a.href = g.dataUrl;
+                      a.download = `vrc-gen-${g.createdAt}.${inferExtFromDataUrl(g.dataUrl)}`;
+                      a.click();
+                      onCopied('✓ 已下载生成图片');
+                    }}
+                  />
+                  <div className="truncate pt-0.5 text-[9px] text-mute">
+                    {g.source === 'json' ? 'JSON' : '精简版'} · {new Date(g.createdAt).toLocaleTimeString()}
+                  </div>
+                  <ConfirmDeleteButton
+                    onConfirm={() => onDeleteGeneratedImage(recordId, g.id)}
+                    title="从历史中删除该生成图片"
+                    className="absolute right-0.5 top-0.5 hidden bg-obsidian/90 px-1 text-[9px] text-mute hover:text-[#EF4444] group-hover:block"
+                    confirmClassName="absolute right-0.5 top-0.5 z-10 bg-obsidian/95 text-[9px]"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="text-2xs text-dim">点击缩略图下载原图</div>
+          </section>
+        )}
       </div>
     </div>
   );

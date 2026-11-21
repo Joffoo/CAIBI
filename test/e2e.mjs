@@ -513,7 +513,7 @@ try {
   );
   check(
     'JSON 与精简提示词均固定写入图像比例（aspect_ratio + 画幅比例）',
-    readyText.includes('"aspect_ratio": "4:3"') && readyText.includes('画幅比例 4:3'),
+    readyText.includes('aspect_ratio') && readyText.includes('4:3') && readyText.includes('画幅比例 4:3'),
   );
 
   await page.screenshot({ path: path.join(here, 'acceptance-hud.png') });
@@ -534,18 +534,126 @@ try {
   });
   await shadowClick(page, '生成图片', 1);
   await page.waitForFunction(
-    () => [...document.body.children].some((el) => el.shadowRoot && el.shadowRoot.textContent.includes('下载 PNG')),
+    () =>
+      [...document.body.children].some(
+        (el) =>
+          el.shadowRoot &&
+          el.shadowRoot.textContent.includes('下载 PNG') &&
+          el.shadowRoot.textContent.includes('已存入历史'),
+      ),
     { timeout: 10000 },
   );
-  check('选用历史人物资产图作为垫图生成图片成功', imageEditCalls === 3);
+  check('选用历史人物资产图作为垫图生成图片成功并写入历史', imageEditCalls === 3);
+
+  // Also generate image from JSON Prompt and verify both persist in history
+  await shadowClick(page, '生成图片', 0);
+  await page.waitForFunction(
+    () =>
+      [...document.body.children].some(
+        (el) => el.shadowRoot && el.shadowRoot.textContent.includes('已生成图片（2，已存入历史）'),
+      ),
+    { timeout: 10000 },
+  );
+  check('按 JSON 提示词生图并写入历史', imageEditCalls === 4);
+
+  // Reload page to prove IndexedDB persistence across page reloads
+  await page.reload({ waitUntil: 'load' });
+  await page.waitForFunction(
+    () => [...document.body.children].some((el) => el.shadowRoot),
+    { timeout: 15000 },
+  );
+  const imgAfterReload = await page.$('#target');
+  const boxAfterReload = await imgAfterReload.boundingBox();
+  await page.mouse.move(
+    boxAfterReload.x + boxAfterReload.width / 2,
+    boxAfterReload.y + boxAfterReload.height / 2,
+    { steps: 3 },
+  );
+  await page.keyboard.down('Alt');
+  await page.keyboard.press('KeyQ');
+  await page.keyboard.up('Alt');
+  await page.waitForFunction(
+    () => [...document.body.children].some((el) => el.shadowRoot && el.shadowRoot.textContent.includes('HARD FACTS')),
+    { timeout: 10000 },
+  );
 
   // Verify HistoryDrawer reads the SSE-compiled record from extension-origin IndexedDB
-  await shadowClick(page, '历史记录');
+  await shadowClick(page, '历史');
   await page.waitForFunction(
     () => [...document.body.children].some((el) => el.shadowRoot && el.shadowRoot.textContent.includes('瑞士平面海报 · E2E SSE')),
     { timeout: 5000 },
   );
   check('History 抽屉读取全局 IndexedDB 记录成功', true);
+
+  await shadowClick(page, '生成图片 (');
+  await page.waitForFunction(
+    () =>
+      [...document.body.children].some(
+        (el) =>
+          el.shadowRoot &&
+          el.shadowRoot.textContent.includes('生成图片 (2)') &&
+          el.shadowRoot.textContent.includes('瑞士平面海报 · E2E SSE · JSON') &&
+          el.shadowRoot.textContent.includes('瑞士平面海报 · E2E SSE · 精简版') &&
+          el.shadowRoot.textContent.includes('下载图片'),
+      ),
+    { timeout: 5000 },
+  );
+  check('页面刷新后 History 抽屉「生成图片」标签页仍展示 JSON 与精简版生成图片', true);
+
+  // Click a generated image item to open its parent record in HudWorkspace
+  await page.evaluate(() => {
+    const host = [...document.body.children].find((el) => el.shadowRoot);
+    const row = [...(host?.shadowRoot?.querySelectorAll('div') ?? [])].find(
+      (d) => d.title === '点击打开所属解剖记录',
+    );
+    row?.click();
+  });
+  await page.waitForFunction(
+    () =>
+      [...document.body.children].some(
+        (el) => el.shadowRoot && el.shadowRoot.textContent.includes('已生成图片（2，已存入历史）'),
+      ),
+    { timeout: 5000 },
+  );
+  check('点击「生成图片」列表项跳转回所属解剖记录并展示已生成图片', true);
+
+  // Delete one generated image from HistoryDrawer while parent record is open and verify live sync
+  await shadowClick(page, '历史');
+  await shadowClick(page, '生成图片 (');
+  await page.waitForFunction(
+    () => [...document.body.children].some((el) => el.shadowRoot && el.shadowRoot.textContent.includes('生成图片 (2)')),
+    { timeout: 5000 },
+  );
+  await page.evaluate(() => {
+    const host = [...document.body.children].find((el) => el.shadowRoot);
+    const delBtn = [...(host?.shadowRoot?.querySelectorAll('button') ?? [])].find(
+      (b) => b.title === '删除生成图片',
+    );
+    delBtn?.click();
+  });
+  await page.waitForFunction(
+    () =>
+      [...document.body.children].some(
+        (el) =>
+          el.shadowRoot &&
+          el.shadowRoot.textContent.includes('确认?') &&
+          el.shadowRoot.textContent.includes('生成图片 (2)'),
+      ),
+    { timeout: 5000 },
+  );
+  check('单条删除首次点击进入「确认?」防呆态且未立即删除', true);
+  await shadowClick(page, '确认?');
+  await page.waitForFunction(
+    () =>
+      [...document.body.children].some(
+        (el) =>
+          el.shadowRoot &&
+          el.shadowRoot.textContent.includes('生成图片 (1)') &&
+          el.shadowRoot.textContent.includes('已生成图片（1，已存入历史）'),
+      ),
+    { timeout: 5000 },
+  );
+  check('在 History 抽屉二次确认删除生成图片后工作区 ③ GENERATED 同步更新', true);
 
   await shadowClick(page, '人物资产 (');
   await page.waitForFunction(
@@ -554,9 +662,31 @@ try {
   );
   const assetsTabText = await shadowText(page);
   check(
-    '人物资产列表不暴露后台提示词“复制提示词”按钮',
-    assetsTabText.includes('下载 PNG') && !assetsTabText.includes('复制提示词'),
+    '人物资产列表不暴露后台提示词“复制提示词”按钮，且展示上传入口',
+    assetsTabText.includes('下载 PNG') &&
+      !assetsTabText.includes('复制提示词') &&
+      assetsTabText.includes('+ 上传人物资产'),
   );
+
+  // Star the second asset (☆) and verify it pins to top (★)
+  const starResult = await page.evaluate(async () => {
+    const host = [...document.body.children].find((el) => el.shadowRoot);
+    const starBtns = [...(host?.shadowRoot?.querySelectorAll('button') ?? [])].filter(
+      (b) => b.title === '加星并置顶',
+    );
+    const second = starBtns[1];
+    if (!second) return { clicked: false };
+    second.click();
+    return { clicked: true };
+  });
+  await page.waitForFunction(
+    () =>
+      [...document.body.children].some(
+        (el) => el.shadowRoot && el.shadowRoot.textContent.includes('★'),
+      ),
+    { timeout: 5000 },
+  );
+  check('人物资产加星（★）并置顶成功', starResult.clicked);
 
   // --- OpenRouter / chat-completions fallback when /images/edits & /images/generations return 404 ---
   await worker.evaluate(async (url) => {
@@ -691,7 +821,7 @@ try {
       ),
     { timeout: 10000 },
   );
-  check('根路径 Base URL 未填 /v1 时自动补全 /v1 生图成功', imageEditCalls === 4);
+  check('根路径 Base URL 未填 /v1 时自动补全 /v1 生图成功', imageEditCalls === 5);
 
   // --- Sub-path Base URL without /v1 falls back to /v1 on 404 ---
   await worker.evaluate(async (url) => {

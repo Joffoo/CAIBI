@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { CharacterAsset } from '../utils/types';
 import { copyText } from '../utils/clipboard';
 import { inferExtFromDataUrl } from '../utils/base64';
@@ -133,5 +133,66 @@ export function ExtractedAssetPreview({
         </div>
       )}
     </>
+  );
+}
+
+/**
+ * Two-step inline delete button: first click arms confirmation for 3 seconds,
+ * second click invokes `onConfirm`. Stops click propagation to parent cards.
+ */
+export function ConfirmDeleteButton({
+  onConfirm,
+  title = '删除',
+  confirmTitle = '再次点击确认删除',
+  className = '',
+  confirmClassName = '',
+}: {
+  onConfirm: () => void | Promise<void>;
+  title?: string;
+  confirmTitle?: string;
+  className?: string;
+  confirmClassName?: string;
+}) {
+  const [confirming, setConfirming] = useState(false);
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (!confirming) {
+      setConfirming(true);
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = window.setTimeout(() => {
+        setConfirming(false);
+        timerRef.current = null;
+      }, 3000);
+      return;
+    }
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    setConfirming(false);
+    void onConfirm();
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      title={confirming ? confirmTitle : title}
+      className={
+        confirming
+          ? `border border-[#EF4444] bg-[#EF4444]/15 px-1 py-0.5 text-2xs font-bold text-[#EF4444] ${confirmClassName}`
+          : className
+      }
+    >
+      {confirming ? '确认?' : '✕'}
+    </button>
   );
 }

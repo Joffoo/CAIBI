@@ -1,5 +1,5 @@
 import { openDB, type IDBPDatabase } from 'idb';
-import type { CharacterAsset, HistoryRecord } from '../utils/types';
+import type { CharacterAsset, GeneratedImage, HistoryRecord } from '../utils/types';
 
 const DB_NAME = 'vrc-history';
 const STORE = 'records';
@@ -7,6 +7,7 @@ const ASSET_STORE = 'assets';
 const VERSION = 2;
 const MAX_RECORDS = 500;
 const MAX_ASSETS = 200;
+const MAX_GENERATED_PER_RECORD = 20;
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
@@ -112,9 +113,76 @@ export async function dbClearRecords(): Promise<void> {
   }
 }
 
+/**
+ * Atomically prepend a generated image to an existing history record.
+ * Read-modify-write happens in one transaction so concurrent generations
+ * (JSON + short prompt panels) never overwrite each other.
+ * Returns the updated record, or null if the record does not exist / write failed.
+ */
+export async function dbAppendGeneratedImage(
+  recordId: string,
+  image: GeneratedImage,
+): Promise<HistoryRecord | null> {
+  try {
+    const d = await db();
+    const tx = d.transaction(STORE, 'readwrite');
+    const store = tx.objectStore(STORE);
+    const existing = (await store.get(recordId)) as HistoryRecord | undefined;
+    if (!existing) {
+      await tx.done;
+      return null;
+    }
+    const prev = (existing.generatedImages ?? []).filter((g) => g.id !== image.id);
+    const updated: HistoryRecord = {
+      ...existing,
+      generatedImages: [image, ...prev].slice(0, MAX_GENERATED_PER_RECORD),
+    };
+    await store.put(updated);
+    await tx.done;
+    return updated;
+  } catch (e) {
+    console.warn('[VRC] Failed to append generated image', e);
+    return null;
+  }
+}
+
+/** Remove one generated image from a record. Returns the updated record or null. */
+export async function dbDeleteGeneratedImage(
+  recordId: string,
+  imageId: string,
+): Promise<HistoryRecord | null> {
+  try {
+    const d = await db();
+    const tx = d.transaction(STORE, 'readwrite');
+    const store = tx.objectStore(STORE);
+    const existing = (await store.get(recordId)) as HistoryRecord | undefined;
+    if (!existing) {
+      await tx.done;
+      return null;
+    }
+    const updated: HistoryRecord = {
+      ...existing,
+      generatedImages: (existing.generatedImages ?? []).filter((g) => g.id !== imageId),
+    };
+    await store.put(updated);
+    await tx.done;
+    return updated;
+  } catch (e) {
+    console.warn('[VRC] Failed to delete generated image', e);
+    return null;
+  }
+}
+
 export async function dbAddAsset(asset: CharacterAsset): Promise<void> {
   try {
-    await putWithCap(ASSET_STORE, asset, MAX_ASSETS);
+    const existing = await dbListAssets(MAX_ASSETS);
+    const minOrder = existing.reduce(
+      (m, a) => (typeof a.sortOrder === 'number' ? Math.min(m, a.sortOrder) : m),
+      0,
+    );
+    const toSave: CharacterAsset =
+      typeof asset.sortOrder === 'number' ? asset : { ...asset, sortOrder: minOrder - 1 };
+    await putWithCap(ASSET_STORE, toSave, MAX_ASSETS);
   } catch (e) {
     console.warn('[VRC] Failed to save character asset', e);
   }
@@ -122,10 +190,52 @@ export async function dbAddAsset(asset: CharacterAsset): Promise<void> {
 
 export async function dbListAssets(limit = 100): Promise<CharacterAsset[]> {
   try {
-    return await listByCreatedAt<CharacterAsset>(ASSET_STORE, limit);
+    const rows = await listByCreatedAt<CharacterAsset>(ASSET_STORE, Math.max(limit, MAX_ASSETS));
+    rows.sort((a, b) => {
+      const ao = typeof a.sortOrder === 'number' ? a.sortOrder : Number.POSITIVE_INFINITY;
+      const bo = typeof b.sortOrder === 'number' ? b.sortOrder : Number.POSITIVE_INFINITY;
+      if (ao !== bo) return ao - bo;
+      return b.createdAt - a.createdAt;
+    });
+    return rows.slice(0, limit);
   } catch (e) {
     console.warn('[VRC] Failed to list character assets', e);
     return [];
+  }
+}
+
+export async function dbUpdateAsset(
+  id: string,
+  patch: Partial<Pick<CharacterAsset, 'name' | 'starred' | 'sortOrder'>>,
+): Promise<void> {
+  try {
+    const d = await db();
+    const tx = d.transaction(ASSET_STORE, 'readwrite');
+    const store = tx.objectStore(ASSET_STORE);
+    const existing = (await store.get(id)) as CharacterAsset | undefined;
+    if (existing) {
+      await store.put({ ...existing, ...patch });
+    }
+    await tx.done;
+  } catch (e) {
+    console.warn('[VRC] Failed to update character asset', e);
+  }
+}
+
+export async function dbReorderAssets(orderedIds: string[]): Promise<void> {
+  try {
+    const d = await db();
+    const tx = d.transaction(ASSET_STORE, 'readwrite');
+    const store = tx.objectStore(ASSET_STORE);
+    for (let i = 0; i < orderedIds.length; i++) {
+      const existing = (await store.get(orderedIds[i])) as CharacterAsset | undefined;
+      if (existing) {
+        await store.put({ ...existing, sortOrder: i });
+      }
+    }
+    await tx.done;
+  } catch (e) {
+    console.warn('[VRC] Failed to reorder character assets', e);
   }
 }
 
@@ -190,6 +300,38 @@ export function clearRecords(): Promise<void> {
   return viaBgVoid({ type: 'DB_CLEAR' }, () => dbClearRecords());
 }
 
+export function appendGeneratedImage(
+  recordId: string,
+  image: GeneratedImage,
+): Promise<HistoryRecord | null> {
+  return viaBg(
+    { type: 'DB_APPEND_GEN', recordId, image },
+    (r) =>
+      r.record === null
+        ? null
+        : r.record && typeof r.record === 'object'
+          ? (r.record as HistoryRecord)
+          : undefined,
+    () => dbAppendGeneratedImage(recordId, image),
+  );
+}
+
+export function deleteGeneratedImage(
+  recordId: string,
+  imageId: string,
+): Promise<HistoryRecord | null> {
+  return viaBg(
+    { type: 'DB_DELETE_GEN', recordId, imageId },
+    (r) =>
+      r.record === null
+        ? null
+        : r.record && typeof r.record === 'object'
+          ? (r.record as HistoryRecord)
+          : undefined,
+    () => dbDeleteGeneratedImage(recordId, imageId),
+  );
+}
+
 export function addAsset(asset: CharacterAsset): Promise<void> {
   return viaBgVoid({ type: 'ASSET_ADD', asset }, () => dbAddAsset(asset));
 }
@@ -204,6 +346,17 @@ export function listAssets(limit = 100): Promise<CharacterAsset[]> {
 
 export function deleteAsset(id: string): Promise<void> {
   return viaBgVoid({ type: 'ASSET_DELETE', id }, () => dbDeleteAsset(id));
+}
+
+export function updateAsset(
+  id: string,
+  patch: Partial<Pick<CharacterAsset, 'name' | 'starred' | 'sortOrder'>>,
+): Promise<void> {
+  return viaBgVoid({ type: 'ASSET_UPDATE', id, patch }, () => dbUpdateAsset(id, patch));
+}
+
+export function reorderAssets(orderedIds: string[]): Promise<void> {
+  return viaBgVoid({ type: 'ASSET_REORDER', orderedIds }, () => dbReorderAssets(orderedIds));
 }
 
 /** Classify a hex color into a coarse color family (Chinese label). */

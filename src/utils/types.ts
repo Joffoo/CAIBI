@@ -48,6 +48,18 @@ export interface CompiledResult {
   short_template?: ShortTemplateSpec;
 }
 
+export type GeneratedImageSource = 'json' | 'short';
+
+/** An image generated from a record's reverse-engineered prompt. */
+export interface GeneratedImage {
+  id: string;
+  createdAt: number;
+  dataUrl: string;
+  prompt: string;
+  source: GeneratedImageSource;
+  referenceSummary?: string;
+}
+
 export interface HistoryRecord {
   id: string;
   createdAt: number;
@@ -57,6 +69,8 @@ export interface HistoryRecord {
   thumbnail: string;
   physics: PhysicsResult;
   result: CompiledResult | null;
+  /** Images generated from this record's prompts (newest first). Optional for older records. */
+  generatedImages?: GeneratedImage[];
 }
 
 export interface CharacterAsset {
@@ -66,6 +80,8 @@ export interface CharacterAsset {
   dataUrl: string;
   prompt: string;
   sourceUrl?: string;
+  starred?: boolean;
+  sortOrder?: number;
 }
 
 export type TriggerMode = 'shortcut' | 'badge' | 'both';
