@@ -1,0 +1,175 @@
+{
+  "source_prompt": "test/eval-bench/baseline/img3_qa.json",
+  "images": {
+    "original": "test/eval-bench/img3_lemon_can.jpg",
+    "recon_json": "test/eval-bench/improved/img3_recon_json.webp",
+    "recon_short": "test/eval-bench/improved/img3_recon_short.webp"
+  },
+  "summary": {
+    "total_questions": 15,
+    "original": {
+      "yes_count": 15,
+      "pass_rate": 1.0
+    },
+    "recon_json": {
+      "yes_count": 10,
+      "pass_rate": 0.6667
+    },
+    "recon_short": {
+      "yes_count": 3,
+      "pass_rate": 0.2
+    }
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "dimension": "主体",
+      "source_field": "subject",
+      "question": "画面中上部正中央是否直立摆放着一罐标准圆柱形哑光铝制易拉罐？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "yes",
+      "notes": "三张图均在画面中上部正中央直立摆放一罐标准圆柱形哑光铝制易拉罐。"
+    },
+    {
+      "id": "Q2",
+      "dimension": "主体",
+      "source_field": "subject",
+      "question": "罐身表面是否印有扁平矢量风格的“左上方横切半片黄柠檬 + 中右下方带白色波点整颗黄柠檬”图案？",
+      "original": "yes",
+      "recon_json": "no",
+      "recon_short": "no",
+      "notes": "recon_json 罐身左侧为一整枚带双绿叶的圆形横切柠檬片，且位置偏中下方（低于右侧带白色波点整颗柠檬），并非“左上方横切半片”；recon_short 罐身印有多枚柠檬切片与底部无波点整颗柠檬，不符。"
+    },
+    {
+      "id": "Q3",
+      "dimension": "主体/细节",
+      "source_field": "subject",
+      "question": "罐顶银色金属开口后方是否同时探出一角新鲜黄柠檬片和两片带叶脉的鲜绿色柠檬叶？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "no",
+      "notes": "recon_json 罐顶开口后方同时探出新鲜黄柠檬片与两片带清晰叶脉的鲜绿色柠檬叶；recon_short 罐顶探出黄柠檬片但左侧绿叶有 3-4 片，多于两片。"
+    },
+    {
+      "id": "Q4",
+      "dimension": "主体",
+      "source_field": "subject",
+      "question": "罐顶左上方背景中是否悬浮着一片极小的嫩绿色柠檬叶？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "no",
+      "notes": "original 与 recon_json 罐顶左上方背景中均悬浮一片小绿叶；recon_short 无此元素。"
+    },
+    {
+      "id": "Q5",
+      "dimension": "构图",
+      "source_field": "composition_camera",
+      "question": "画面是否为 9:16 竖幅居中构图，并明显分为上方约 62% 产品展示区与下方约 38% 留白排版区？",
+      "original": "yes",
+      "recon_json": "no",
+      "recon_short": "no",
+      "notes": "recon_json 与 recon_short 均为 1:1 方形构图，非 9:16 竖幅海报比例。"
+    },
+    {
+      "id": "Q6",
+      "dimension": "构图",
+      "source_field": "composition_camera",
+      "question": "背景左缘是否裁切着一颗大型黄色整颗柠檬，且右上角裁切着一枚大型黄色柠檬切片？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "no",
+      "notes": "original 与 recon_json 背景左缘均裁切大型黄色整颗柠檬、右上角均裁切大型黄色柠檬切片；recon_short 无这两处背景柠檬。"
+    },
+    {
+      "id": "Q7",
+      "dimension": "风格媒介",
+      "source_field": "style_medium",
+      "question": "背景中的水果、流动浅天蓝色叶片/水花以及气泡是否全部采用干净的 2D 纯平矢量色块风格？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "no",
+      "notes": "recon_json 背景中的裁切柠檬、浅蓝色叶片、右下角波浪色块及圆点气泡均采用干净的 2D 纯平矢量色块风格；recon_short 背景为带立体阴影的弧形层叠造型与台面，非 2D 纯平矢量。"
+    },
+    {
+      "id": "Q8",
+      "dimension": "光影",
+      "source_field": "lighting_atmosphere",
+      "question": "画面是否呈现高调明亮（High-Key）柔和影棚布光，罐体左侧有柔和纵向高光带，且罐底在台面上投下柔和接触阴影？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "yes",
+      "notes": "三张图均呈现高调明亮柔和影棚光、罐体左侧柔和纵向高光带及罐底柔和接触阴影。"
+    },
+    {
+      "id": "Q9",
+      "dimension": "色彩",
+      "source_field": "color_palette",
+      "question": "画面整体是否以高明度冷白与浅冰蓝（#E8F3F7、#C5D9E1）为主导基调，搭配亮柠檬黄、鲜翠绿与深海蓝文字？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "no",
+      "notes": "recon_json 整体保持冷白上区、浅冰蓝下区、亮柠檬黄、鲜翠绿与深海蓝文字基调；recon_short 下方留白区为纯白而非浅冰蓝，主文字为高饱和亮宝蓝。"
+    },
+    {
+      "id": "Q10",
+      "dimension": "细节",
+      "source_field": "details_texture",
+      "question": "哑光罐身表面是否附着细密逼真的透明冷凝水珠，且罐顶与罐底均为银色金属卷边？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "yes",
+      "notes": "三张图罐身表面均附着细密透明冷凝水珠，且罐顶、罐底均为银色金属卷边。"
+    },
+    {
+      "id": "Q11",
+      "dimension": "文字",
+      "source_field": "details_texture",
+      "question": "罐身正面中下部是否横排印有字形完全准确的深色无衬线中文“柠檬气泡饮”？",
+      "original": "yes",
+      "recon_json": "no",
+      "recon_short": "no",
+      "notes": "recon_json 虽改为罐身中下部横排，但前两字错写为“檬蒙”（呈“檬蒙气泡饮”）；recon_short 罐身正面无任何文字。"
+    },
+    {
+      "id": "Q12",
+      "dimension": "文字",
+      "source_field": "details_texture",
+      "question": "罐身主品名下方是否印有更小字号的“清爽每一口”，且左右各带一枚小黄点？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "no",
+      "notes": "original 与 recon_json 均准确印有“• 清爽每一口 •”及左右小黄点；recon_short 罐身无文字。"
+    },
+    {
+      "id": "Q13",
+      "dimension": "文字",
+      "source_field": "details_texture",
+      "question": "下方留白区是否居中排布两行宽字距粗体深海蓝大写无衬线英文“L E M O N”与“F I Z Z”？",
+      "original": "yes",
+      "recon_json": "no",
+      "recon_short": "no",
+      "notes": "recon_json 排布为单行“L E M O N  F I Z Z”，而非两行分行排布；recon_short 完全缺失该英文标题（改为中文“柠檬气泡饮 / 越喝越有料”）。"
+    },
+    {
+      "id": "Q14",
+      "dimension": "文字",
+      "source_field": "details_texture",
+      "question": "主标题下方是否居中排布深海蓝斜体衬线英文“Light. Bubbly. Refreshing.”（末尾带一小黄点）？",
+      "original": "yes",
+      "recon_json": "yes",
+      "recon_short": "no",
+      "notes": "original 与 recon_json 均准确居中排布深海蓝斜体衬线“Light. Bubbly. Refreshing.”且末尾带小黄点；recon_short 完全缺失。"
+    },
+    {
+      "id": "Q15",
+      "dimension": "细节与文字",
+      "source_field": "details_texture",
+      "question": "最下方区域是否依次居中排布“带两片小叶的扁平黄色小柠檬图标及右侧两枚空心圆圈气泡”、“真柠檬汁 ≥10%”（含黄色 ≥10%）及“0 脂 肪 · 0 代 糖 · 清 爽 解 渴”？",
+      "original": "yes",
+      "recon_json": "no",
+      "recon_short": "no",
+      "notes": "recon_json 绘出小柠檬图标、两枚空心气泡与黄色“≥10%”，但两行中文仍存在错字（“真檬蒙汁”与“清爽解澡”）；recon_short 全部缺失。"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "image_id": "img5",
+  "orig_path": "test/eval-bench/img5_dark_elf.jpg",
+  "reconstructions": {
+    "short_template": {
+      "orig": "test\\eval-bench\\img5_dark_elf.jpg",
+      "gen": "test\\eval-bench\\improved\\img5_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 68.2,
+        "midtones_pct": 31.8,
+        "highlights_pct": 0.0,
+        "mean_y": 38.5,
+        "std_dev": 34.3
+      },
+      "gen_lum": {
+        "shadows_pct": 73.0,
+        "midtones_pct": 26.0,
+        "highlights_pct": 1.0,
+        "mean_y": 45.3,
+        "std_dev": 52.4
+      },
+      "lum_delta": {
+        "shadows_delta": 4.8,
+        "midtones_delta": 5.8,
+        "highlights_delta": 1.0,
+        "mean_y_delta": 6.8,
+        "std_dev_delta": 18.1
+      },
+      "global_palette_delta_e": 4.46,
+      "spatial_mean_delta_e": 14.01,
+      "edge_structure_cosine": 0.5075,
+      "lab_cosine_similarity": 0.7418
+    },
+    "json_prompt": {
+      "orig": "test\\eval-bench\\img5_dark_elf.jpg",
+      "gen": "test\\eval-bench\\improved\\img5_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 68.2,
+        "midtones_pct": 31.8,
+        "highlights_pct": 0.0,
+        "mean_y": 38.5,
+        "std_dev": 34.3
+      },
+      "gen_lum": {
+        "shadows_pct": 65.6,
+        "midtones_pct": 29.7,
+        "highlights_pct": 4.7,
+        "mean_y": 59.5,
+        "std_dev": 62.6
+      },
+      "lum_delta": {
+        "shadows_delta": 2.6,
+        "midtones_delta": 2.1,
+        "highlights_delta": 4.7,
+        "mean_y_delta": 21.0,
+        "std_dev_delta": 28.3
+      },
+      "global_palette_delta_e": 9.13,
+      "spatial_mean_delta_e": 16.12,
+      "edge_structure_cosine": 0.5388,
+      "lab_cosine_similarity": 0.769
+    }
+  },
+  "subject_swaps": {
+    "swap1": {
+      "path": "test/eval-bench/improved/img5_swap1.webp",
+      "generator": "eval_tools.py (OpenRouter)",
+      "subject": "一位身穿墨绿色天鹅绒立领礼服、留着黑曜石般黑色长卷发的年轻男吸血鬼",
+      "pass": true,
+      "notes": "暗黑哥特钢笔排线、做旧磨砂纸面划痕肌理、大面积纯黑负空间与低调暗黑曝光均稳定保持；新主体（男吸血鬼、黑曜石长卷发、墨绿立领礼服）准确呈现，肤色被压暗在低调曝光中，无原图精灵耳/麻花辫/女性服饰残留。"
+    },
+    "swap2": {
+      "path": "test/eval-bench/improved/img5_swap2.webp",
+      "generator": "image-generator fallback (OpenRouter 429 free-models-per-day limit)",
+      "subject": "一只端坐于暗金雕花高背椅上、佩戴红宝石项圈的纯白波斯猫",
+      "pass": true,
+      "notes": "跨物种/跨类别换主体表现优异。纯白波斯猫毛发按明度校准铁律压暗呈灰暗低明度、无刺眼纯白高光；暗金雕花高背椅、红宝石项圈、钢笔排线与带微尘纯黑负空间均高度契合原图画风，无原图人物特征残留。"
+    }
+  }
+}

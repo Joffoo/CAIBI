@@ -1,0 +1,73 @@
+{
+  "image": "test/eval-bench/img1_portrait.jpg",
+  "recon_short": {
+    "orig": "test\\eval-bench\\img1_portrait.jpg",
+    "gen": "test\\eval-bench\\baseline\\img1_recon_short.webp",
+    "orig_lum": {
+      "shadows_pct": 31.4,
+      "midtones_pct": 53.7,
+      "highlights_pct": 14.9,
+      "mean_y": 108.9,
+      "std_dev": 63.1
+    },
+    "gen_lum": {
+      "shadows_pct": 35.4,
+      "midtones_pct": 55.0,
+      "highlights_pct": 9.6,
+      "mean_y": 102.0,
+      "std_dev": 64.5
+    },
+    "lum_delta": {
+      "shadows_delta": 4.0,
+      "midtones_delta": 1.3,
+      "highlights_delta": 5.3,
+      "mean_y_delta": 6.9,
+      "std_dev_delta": 1.4
+    },
+    "global_palette_delta_e": 7.12,
+    "spatial_mean_delta_e": 36.64,
+    "edge_structure_cosine": 0.5494,
+    "lab_cosine_similarity": 0.7153
+  },
+  "recon_json": {
+    "orig": "test\\eval-bench\\img1_portrait.jpg",
+    "gen": "test\\eval-bench\\baseline\\img1_recon_json.webp",
+    "orig_lum": {
+      "shadows_pct": 31.4,
+      "midtones_pct": 53.7,
+      "highlights_pct": 14.9,
+      "mean_y": 108.9,
+      "std_dev": 63.1
+    },
+    "gen_lum": {
+      "shadows_pct": 35.6,
+      "midtones_pct": 50.5,
+      "highlights_pct": 13.9,
+      "mean_y": 105.1,
+      "std_dev": 65.1
+    },
+    "lum_delta": {
+      "shadows_delta": 4.2,
+      "midtones_delta": 3.2,
+      "highlights_delta": 1.0,
+      "mean_y_delta": 3.8,
+      "std_dev_delta": 2.0
+    },
+    "global_palette_delta_e": 6.28,
+    "spatial_mean_delta_e": 35.45,
+    "edge_structure_cosine": 0.5422,
+    "lab_cosine_similarity": 0.7318
+  },
+  "visual_inspection": {
+    "recon_short": "整体光影氛围、雀斑肤质、湿发、红唇、蓝色冰棒与浅蓝美甲均得到还原，但人物微侧头且冰棒呈偏透明冰沙感，未出现上唇融化奶油痕迹。",
+    "recon_json": "高度还原原图：微闭双眼、左颊湿发、鼻侧锐利斜向硬阴影、正红亮泽唇釉及上唇右侧蓝色融化奶油、球状天蓝色冰棒（兼顾顶部光滑融化层与中部粗糙划痕及微黄碎屑）、滴落水珠、浅米色木棒及虚化蓝绿肩带与耳环均精准再现。",
+    "swap1": {
+      "status": "pass",
+      "notes": "黑人男性戴复古圆框墨镜咬鲜橙色芒果雪糕。成功迁移极近特写构图、左上方强硬光与锐利硬阴影、真实毛孔肤质、胶片颗粒及奶油散景，无原图女性或蓝冰棒元素残留。"
+    },
+    "swap2": {
+      "status": "partial_fail",
+      "notes": "橘色短毛猫伸粉红舌头舔翠绿色抹茶冰淇淋球。橘猫与抹茶冰淇淋球生成清晰且光影一致，但画面上方残留了一张人类女性的半张脸（微闭眼、鼻子、嘴唇），原因是 short_template 中包含“人像”“面部”“暖棕小麦肤调”等人类强绑定词汇，替换非人主体时诱发了双主体残留。"
+    }
+  }
+}

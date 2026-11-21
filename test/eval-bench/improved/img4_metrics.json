@@ -1,0 +1,94 @@
+{
+  "image": "test/eval-bench/img4_city_poster.jpg",
+  "dimensions": "576x1024",
+  "aspect_ratio": "9:16",
+  "gen_resolution": "1024x1024",
+  "compare": {
+    "recon_short": {
+      "orig": "test\\eval-bench\\img4_city_poster.jpg",
+      "gen": "test\\eval-bench\\improved\\img4_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 4.7,
+        "midtones_pct": 28.2,
+        "highlights_pct": 67.0,
+        "mean_y": 196.0,
+        "std_dev": 66.4
+      },
+      "gen_lum": {
+        "shadows_pct": 11.1,
+        "midtones_pct": 44.1,
+        "highlights_pct": 44.9,
+        "mean_y": 168.2,
+        "std_dev": 69.0
+      },
+      "lum_delta": {
+        "shadows_delta": 6.4,
+        "midtones_delta": 15.9,
+        "highlights_delta": 22.1,
+        "mean_y_delta": 27.8,
+        "std_dev_delta": 2.6
+      },
+      "global_palette_delta_e": 17.06,
+      "spatial_mean_delta_e": 42.61,
+      "edge_structure_cosine": 0.5613,
+      "lab_cosine_similarity": 0.8026
+    },
+    "recon_json": {
+      "orig": "test\\eval-bench\\img4_city_poster.jpg",
+      "gen": "test\\eval-bench\\improved\\img4_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 4.7,
+        "midtones_pct": 28.2,
+        "highlights_pct": 67.0,
+        "mean_y": 196.0,
+        "std_dev": 66.4
+      },
+      "gen_lum": {
+        "shadows_pct": 8.6,
+        "midtones_pct": 25.5,
+        "highlights_pct": 65.9,
+        "mean_y": 190.3,
+        "std_dev": 65.2
+      },
+      "lum_delta": {
+        "shadows_delta": 3.9,
+        "midtones_delta": 2.7,
+        "highlights_delta": 1.1,
+        "mean_y_delta": 5.7,
+        "std_dev_delta": 1.2
+      },
+      "global_palette_delta_e": 3.91,
+      "spatial_mean_delta_e": 25.47,
+      "edge_structure_cosine": 0.5901,
+      "lab_cosine_similarity": 0.9133
+    }
+  },
+  "baseline_diff": {
+    "recon_json": {
+      "global_palette_delta_e": "8.38 -> 3.91 (-4.47, improved)",
+      "spatial_mean_delta_e": "27.74 -> 25.47 (-2.27, improved)",
+      "mean_y_delta": "15.3 -> 5.7 (-9.6, improved)",
+      "edge_structure_cosine": "0.6317 -> 0.5901 (-0.0416)",
+      "lab_cosine_similarity": "0.8979 -> 0.9133 (+0.0154, improved)"
+    },
+    "recon_short": {
+      "global_palette_delta_e": "4.56 -> 17.06 (+12.50, regressed)",
+      "spatial_mean_delta_e": "26.56 -> 42.61 (+16.05, regressed)",
+      "mean_y_delta": "7.6 -> 27.8 (+20.2, regressed)",
+      "edge_structure_cosine": "0.5643 -> 0.5613 (-0.0030)",
+      "lab_cosine_similarity": "0.9003 -> 0.8026 (-0.0977, regressed)"
+    }
+  },
+  "visual_inspection": {
+    "recon_short": "主体元素（浅蓝方格底纸、蓝黑白蜡笔质感镜头、城市高楼、路灯、绿树、高架猫剪影）均有呈现，但外围出现了较宽的蓝色边框与四角棋盘格，拉低了整体明度并推高了 ΔE；标题也变为中英文“A visual journey through pixel art history / 视觉之旅：像素艺术的历史”。",
+    "recon_json": "整体还原度与明度/色阶匹配极佳：高调米白纸面、顶部四栏眉批与右上角棋盘格、网格内中英文引语、蜡笔排线像素相机与瞳孔高光、左右街景与高架猫剪影、蓝字粗体“城市在注视”（含“城”字内明黄色块）、“THE CITY IS WATCHING”、“2026.09.18 — 10.12”及底栏三栏信息均准确对齐，仅极小号中文副文偶有笔画粘连。",
+    "swap1": {
+      "subject": "一台老式双反胶片相机与周围的珊瑚橙色热带棕榈树、夕阳海浪",
+      "verdict": "整体蜡笔肌理、钴蓝+明黄+珊瑚橙+森林绿配色与海报分栏文字感保持良好，新主体（复古双镜头相机、珊瑚橙棕榈树与海浪）明确出现且无原图城市/黑猫残留；但外围棋盘格扩大为整圈边框，且内框为四格分镜而非单幅浅蓝细线方格。"
+    },
+    "swap2": {
+      "subject": "一只戴着翠绿色耳机的机械猫与周围的赛博霓虹高楼",
+      "verdict": "米白底纸、高调平光、钴蓝+珊瑚橙+明黄+青绿赛博高楼配色及粗糙蜡笔排线质感均锁定良好，机械猫主体突出且佩戴翠绿色耳机、身躯带有阶梯状像素边缘，无原图相机残留；但顶部出现大面积浅蓝底块且框内细蓝方格线较淡。"
+    }
+  }
+}

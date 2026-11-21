@@ -1,0 +1,74 @@
+{
+  "image": "test/eval-bench/img1_portrait.jpg",
+  "template_length": 158,
+  "recon_short": {
+    "file": "test/eval-bench/improved/img1_recon_short.webp",
+    "orig_lum": {
+      "shadows_pct": 31.4,
+      "midtones_pct": 53.7,
+      "highlights_pct": 14.9,
+      "mean_y": 108.9,
+      "std_dev": 63.1
+    },
+    "gen_lum": {
+      "shadows_pct": 45.0,
+      "midtones_pct": 43.5,
+      "highlights_pct": 11.6,
+      "mean_y": 98.8,
+      "std_dev": 65.7
+    },
+    "lum_delta": {
+      "shadows_delta": 13.6,
+      "midtones_delta": 10.2,
+      "highlights_delta": 3.3,
+      "mean_y_delta": 10.1,
+      "std_dev_delta": 2.6
+    },
+    "global_palette_delta_e": 5.22,
+    "spatial_mean_delta_e": 36.66,
+    "edge_structure_cosine": 0.5176,
+    "lab_cosine_similarity": 0.7126
+  },
+  "recon_json": {
+    "file": "test/eval-bench/improved/img1_recon_json.webp",
+    "orig_lum": {
+      "shadows_pct": 31.4,
+      "midtones_pct": 53.7,
+      "highlights_pct": 14.9,
+      "mean_y": 108.9,
+      "std_dev": 63.1
+    },
+    "gen_lum": {
+      "shadows_pct": 56.2,
+      "midtones_pct": 37.5,
+      "highlights_pct": 6.3,
+      "mean_y": 79.6,
+      "std_dev": 57.0
+    },
+    "lum_delta": {
+      "shadows_delta": 24.8,
+      "midtones_delta": 16.2,
+      "highlights_delta": 8.6,
+      "mean_y_delta": 29.3,
+      "std_dev_delta": 6.1
+    },
+    "global_palette_delta_e": 15.26,
+    "spatial_mean_delta_e": 31.27,
+    "edge_structure_cosine": 0.5932,
+    "lab_cosine_similarity": 0.7752
+  },
+  "swap_checks": {
+    "swap1": {
+      "file": "test/eval-bench/improved/img1_swap1.webp",
+      "subject": "一位戴着复古圆框墨镜的黑人男性咬着一块鲜橙色芒果雪糕",
+      "human_female_or_blue_residue": false,
+      "notes": "成功保留硬顶侧光、斜向投影、微距极近景与胶片颗粒，主体与雪糕颜色完全切换。"
+    },
+    "swap2": {
+      "file": "test/eval-bench/improved/img1_swap2.webp",
+      "subject": "一只橘色短毛猫伸出粉红色舌头舔舐一颗翠绿色抹茶冰淇淋球",
+      "human_face_residue": false,
+      "notes": "彻底消除人类面部、嘴唇、皮肤与手指残留，完整呈现橘猫与抹茶冰淇淋球，保持左上硬光、高反差阴影与 35mm 胶片质感。"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "image": "test/eval-bench/img2_beach_frame.jpg",
+  "compare": {
+    "img2_recon_short": {
+      "orig": "test\\eval-bench\\img2_beach_frame.jpg",
+      "gen": "test\\eval-bench\\improved\\img2_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 34.2,
+        "midtones_pct": 57.4,
+        "highlights_pct": 8.4,
+        "mean_y": 110.3,
+        "std_dev": 57.2
+      },
+      "gen_lum": {
+        "shadows_pct": 39.8,
+        "midtones_pct": 40.0,
+        "highlights_pct": 20.1,
+        "mean_y": 105.7,
+        "std_dev": 69.7
+      },
+      "lum_delta": {
+        "shadows_delta": 5.6,
+        "midtones_delta": 17.4,
+        "highlights_delta": 11.7,
+        "mean_y_delta": 4.6,
+        "std_dev_delta": 12.5
+      },
+      "global_palette_delta_e": 8.76,
+      "spatial_mean_delta_e": 33.49,
+      "edge_structure_cosine": 0.4865,
+      "lab_cosine_similarity": 0.787
+    },
+    "img2_recon_json": {
+      "orig": "test\\eval-bench\\img2_beach_frame.jpg",
+      "gen": "test\\eval-bench\\improved\\img2_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 34.2,
+        "midtones_pct": 57.4,
+        "highlights_pct": 8.4,
+        "mean_y": 110.3,
+        "std_dev": 57.2
+      },
+      "gen_lum": {
+        "shadows_pct": 17.0,
+        "midtones_pct": 74.1,
+        "highlights_pct": 9.0,
+        "mean_y": 127.3,
+        "std_dev": 52.5
+      },
+      "lum_delta": {
+        "shadows_delta": 17.2,
+        "midtones_delta": 16.7,
+        "highlights_delta": 0.6,
+        "mean_y_delta": 17.0,
+        "std_dev_delta": 4.7
+      },
+      "global_palette_delta_e": 8.47,
+      "spatial_mean_delta_e": 34.03,
+      "edge_structure_cosine": 0.5513,
+      "lab_cosine_similarity": 0.825
+    }
+  },
+  "baseline_vs_improved": {
+    "img2_recon_short": {
+      "mean_y_delta": "25.7 -> 4.6 (-21.1)",
+      "global_palette_delta_e": "15.39 -> 8.76 (-6.63)",
+      "spatial_mean_delta_e": "35.03 -> 33.49 (-1.54)",
+      "edge_structure_cosine": "0.5492 -> 0.4865 (-0.0627)",
+      "lab_cosine_similarity": "0.7576 -> 0.7870 (+0.0294)"
+    },
+    "img2_recon_json": {
+      "mean_y_delta": "28.8 -> 17.0 (-11.8)",
+      "global_palette_delta_e": "20.71 -> 8.47 (-12.24)",
+      "spatial_mean_delta_e": "35.10 -> 34.03 (-1.07)",
+      "edge_structure_cosine": "0.5233 -> 0.5513 (+0.0280)",
+      "lab_cosine_similarity": "0.7367 -> 0.8250 (+0.0883)"
+    }
+  },
+  "swap_visual_inspection": {
+    "img2_swap1": {
+      "generator": "eval_tools.py (recraft/recraft-v4.1-flash-v2:free)",
+      "prompt_subject": "一位身穿宝蓝色冲锋衣的短发少年站在雪山湖畔边回头微笑",
+      "pass": true,
+      "style_and_framing": "完整保留 1:1 比例、极近景虚化双手围成的不规则框构图、通透暖深棕向浅卡其过渡（无死黑压暗）、右上角灰青天空与 35mm 胶片颗粒质感。",
+      "subject_fidelity": "准确呈现身穿宝蓝色冲锋衣的短发少年站在雪山湖畔回头微笑，带自然侧逆光暖金边缘光，无原图海滩、海浪或芥末黄 T 恤泄漏。"
+    },
+    "img2_swap2": {
+      "generator": "image-generator fallback (OpenRouter free-tier 429 daily limit reached)",
+      "prompt_subject": "一只站在秋日金色银杏林小径上的白色萨摩耶犬",
+      "pass": true,
+      "style_and_framing": "完整保留 1:1 比例、极近景虚化双手不规则梯形前景框、通透暖棕肤色过渡（非纯黑死暗）、右上角灰青天空与 35mm 胶片颗粒质感。",
+      "subject_fidelity": "准确呈现站在秋日金色银杏林小径上的白色萨摩耶犬，毛色雪白、银杏金黄自然通透，无原图人物或海滩元素泄漏。"
+    }
+  }
+}

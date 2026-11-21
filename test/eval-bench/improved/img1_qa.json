@@ -1,0 +1,284 @@
+{
+  "image_id": "img1",
+  "source_prompt_file": "test/eval-bench/improved/img1_norm.json",
+  "images": {
+    "original": "test/eval-bench/img1_portrait.jpg",
+    "recon_json": "test/eval-bench/improved/img1_recon_json.webp",
+    "recon_short": "test/eval-bench/improved/img1_recon_short.webp"
+  },
+  "total_questions": 15,
+  "questions": [
+    {
+      "id": "Q1",
+      "dimension": "主体",
+      "question": "画面主体是否为一位微闭双眼、眼睑轻垂的年轻女性面部极近特写？",
+      "original": {
+        "answer": "yes",
+        "note": "年轻女性面部极近特写，双眼微闭、眼睑轻垂。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "年轻女性面部极近特写，顶部可见双眼微闭、眼睑与睫毛轻垂。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "画面顶部从鼻孔与鼻尖位置裁切，双眼及眼睑完全未入镜，无法呈现微闭双眼与眼睑轻垂。"
+      }
+    },
+    {
+      "id": "Q2",
+      "dimension": "主体",
+      "question": "几缕湿润的深棕色发丝是否凌乱垂落在女性的左眼角与左脸颊（画面左侧）上？",
+      "original": {
+        "answer": "yes",
+        "note": "画面左侧眼角与脸颊上垂落数缕湿润深棕色发丝。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "左眼角、鼻梁上端及左颧骨上方可见数缕细碎深棕色发丝凌乱垂落（发丝较原图更细且稀疏）。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "左眼角未入镜，湿润深棕色发丝仅垂落于画面最左侧外缘/耳前，未垂落在左眼角与左脸颊表面。"
+      }
+    },
+    {
+      "id": "Q3",
+      "dimension": "主体",
+      "question": "画面右侧（右耳垂位置）是否隐约可见一只细小的金属圆环耳环？",
+      "original": {
+        "answer": "yes",
+        "note": "画面右侧边缘暗部耳垂处隐约可见细小金属圆环耳环。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "画面右侧暗部耳垂处清晰可见一只细小的金属圆环耳环。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "右耳垂完全未入镜，画面右侧无耳环。"
+      }
+    },
+    {
+      "id": "Q4",
+      "dimension": "动作",
+      "question": "女性是否微张嘴唇，从左上方咬住正在融化的天蓝色球状冰棒？",
+      "original": {
+        "answer": "yes",
+        "note": "嘴唇微张，从冰棒左上方咬住天蓝色球状冰棒。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "嘴唇微张从左上方斜向含咬倾斜的天蓝色融化冰棒（冰棒呈略偏圆柱的圆润块状，非严格正球体，但整体角度与融化状态吻合）。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "冰棒呈竖直长条块状，嘴唇位于冰棒正上方居中咬住顶部，并非从左上方咬住球状冰棒。"
+      }
+    },
+    {
+      "id": "Q5",
+      "dimension": "动作",
+      "question": "画面下方是否有手用食指与中指两根手指轻握浅米色扁平木质冰棒棍？",
+      "original": {
+        "answer": "yes",
+        "note": "画面下方右手以食指与中指轻握浅米色木质冰棒棍。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "画面右下角可见手以食指与中指（底边露出第二指及指甲）轻握浅米色扁平木质冰棒棍。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "画面底边仅露出单根手指（拇指/食指状）轻触木棍，未见食指与中指两根手指握持。"
+      }
+    },
+    {
+      "id": "Q6",
+      "dimension": "细节",
+      "question": "握住冰棒棍的食指指甲是否涂有浅粉蓝色纯色指甲油？",
+      "original": {
+        "answer": "yes",
+        "note": "食指指甲涂有浅粉蓝色纯色指甲油。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "食指指甲涂有明显的浅粉蓝色纯色指甲油。"
+      },
+      "recon_short": {
+        "answer": "yes",
+        "note": "下方手指指甲涂有明显的浅粉蓝色纯色指甲油。"
+      }
+    },
+    {
+      "id": "Q7",
+      "dimension": "细节",
+      "question": "上唇右侧边缘是否沾有一抹融化溢出的蓝色冰棒奶油糊？",
+      "original": {
+        "answer": "yes",
+        "note": "上唇右侧边缘沾有一抹明显溢出的天蓝色奶油糊。"
+      },
+      "recon_json": {
+        "answer": "no",
+        "note": "上唇右侧外部边缘干净，无融化溢出的蓝色冰棒奶油糊沾染。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "上唇右侧外部边缘干净，未见融化溢出的蓝色冰棒奶油糊。"
+      }
+    },
+    {
+      "id": "Q8",
+      "dimension": "构图",
+      "question": "画面是否为 2:3 竖幅比例（而非 1:1 正方形或横幅）？",
+      "original": {
+        "answer": "yes",
+        "note": "2:3 竖幅构图。"
+      },
+      "recon_json": {
+        "answer": "no",
+        "note": "输出为 1:1 正方形比例，未保持 2:3 竖幅。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "输出为 1:1 正方形比例，未保持 2:3 竖幅。"
+      }
+    },
+    {
+      "id": "Q9",
+      "dimension": "构图",
+      "question": "画面裁切范围是否顶部在双眉下方（不露完整眉毛）、底部延伸至锁骨下方与手部下方？",
+      "original": {
+        "answer": "yes",
+        "note": "顶部在双眉下方裁切，底部延伸至锁骨下方与手指下方。"
+      },
+      "recon_json": {
+        "answer": "no",
+        "note": "顶部在双眉下方裁切，但底部在中指位置即被截断，未延伸至锁骨下方与手部下方。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "顶部从鼻孔下方裁切（过低），底部在单根手指处截断，未延伸至锁骨下方与手部下方。"
+      }
+    },
+    {
+      "id": "Q10",
+      "dimension": "构图",
+      "question": "画面是否采用极浅景深，使颈肩、背景与远端区域化作柔和散景虚化？",
+      "original": {
+        "answer": "yes",
+        "note": "极浅景深，颈肩、肩带与耳部背景呈现柔和虚化。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "极浅景深，颈肩、肩带、耳部与深色背景呈柔和散景虚化。"
+      },
+      "recon_short": {
+        "answer": "yes",
+        "note": "极浅景深，颈肩、发梢与背景呈柔和虚化。"
+      }
+    },
+    {
+      "id": "Q11",
+      "dimension": "光影",
+      "question": "强烈直射硬太阳光是否从左上方入射，使左脸颊呈明亮高光、并在右脸颊投下鼻翼右侧边缘清晰锐利的斜向深色硬阴影？",
+      "original": {
+        "answer": "yes",
+        "note": "强光自左上方入射，左脸颊呈明亮高光，鼻翼右侧在右脸颊投下清晰锐利的斜向深色硬阴影。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "强光自左上方入射，左脸颊及鼻梁呈明亮高光，鼻翼右侧在右脸颊投下清晰锐利的斜向深色硬阴影。"
+      },
+      "recon_short": {
+        "answer": "yes",
+        "note": "强直射硬太阳光自左上方入射，左侧脸颊受光（带发丝锐利投影），鼻翼右侧在右脸颊投下清晰锐利的斜向深色硬阴影。"
+      }
+    },
+    {
+      "id": "Q12",
+      "dimension": "色彩",
+      "question": "画面是否以暖棕小麦色/赤陶肤色与深棕阴影为基底，并与天蓝色冰棒、亮泽红唇形成强烈冷暖撞色？",
+      "original": {
+        "answer": "yes",
+        "note": "暖棕小麦/赤陶肤色调与深棕阴影基底，搭配天蓝色冰棒与正红唇彩，冷暖对比鲜明。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "暖棕小麦肤色与深棕面部阴影为基底，与天蓝色冰棒、红唇形成强烈冷暖撞色。"
+      },
+      "recon_short": {
+        "answer": "yes",
+        "note": "暖棕小麦肤色与深棕阴影为基底，与天蓝色冰棒、亮泽红唇形成强烈冷暖撞色。"
+      }
+    },
+    {
+      "id": "Q13",
+      "dimension": "色彩",
+      "question": "女性双唇是否涂有高饱和正红/樱桃红亮面唇釉并带有明显水润高光反光？",
+      "original": {
+        "answer": "yes",
+        "note": "双唇涂有高饱和正红亮面唇釉，高光反光明显。"
+      },
+      "recon_json": {
+        "answer": "no",
+        "note": "双唇呈偏自然豆沙砖红色且质地偏哑光，缺乏高饱和正红/樱桃红亮面唇釉的明显水润高光反光。"
+      },
+      "recon_short": {
+        "answer": "yes",
+        "note": "双唇涂有高饱和红色亮面唇釉，唇峰与下唇带有明显水润高光反光。"
+      }
+    },
+    {
+      "id": "Q14",
+      "dimension": "细节",
+      "question": "冰棒表面是否同时具备顶部光滑粘稠融化奶油质感与中部粗糙条状冰沙划痕肌理？",
+      "original": {
+        "answer": "yes",
+        "note": "顶部呈光滑粘稠融化奶油流淌状，中部可见明显的横向粗糙条状冰沙划痕肌理。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "顶部及底部滴落边缘呈光滑融化奶油质感，中部具备粗糙颗粒与横向条状冰沙划痕肌理。"
+      },
+      "recon_short": {
+        "answer": "no",
+        "note": "冰棒通体呈均匀光滑湿润的融化奶油/糖衣质感，缺乏中部粗糙条状冰沙划痕肌理。"
+      }
+    },
+    {
+      "id": "Q15",
+      "dimension": "细节",
+      "question": "面部皮肤是否保留真实微距质感（可见毛孔、自然雀斑或阳光下微湿油润反光），且画面无任何文字或 Logo？",
+      "original": {
+        "answer": "yes",
+        "note": "可见毛孔、雀斑与阳光下油润反光，无文字或 Logo。"
+      },
+      "recon_json": {
+        "answer": "yes",
+        "note": "面部清晰可见真实毛孔、自然雀斑及阳光下微湿高光，画面无任何文字或 Logo。"
+      },
+      "recon_short": {
+        "answer": "yes",
+        "note": "面部可见细腻毛孔与阳光下油润光泽，画面无任何文字或 Logo。"
+      }
+    }
+  ],
+  "summary": {
+    "original": {
+      "yes": 15,
+      "total": 15,
+      "pass_rate": 1.0
+    },
+    "recon_json": {
+      "yes": 11,
+      "total": 15,
+      "pass_rate": 0.7333
+    },
+    "recon_short": {
+      "yes": 6,
+      "total": 15,
+      "pass_rate": 0.4
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "image": "test/eval-bench/img3_lemon_can.jpg",
+  "dimensions": "576x1024",
+  "aspect_ratio": "9:16",
+  "generator": "image-generator (fallback; eval_tools.py not present)",
+  "compare_results": {
+    "img3_recon_short": {
+      "orig": "test\\eval-bench\\img3_lemon_can.jpg",
+      "gen": "test\\eval-bench\\v2\\img3_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 0.0,
+        "midtones_pct": 5.0,
+        "highlights_pct": 95.0,
+        "mean_y": 231.2,
+        "std_dev": 21.5
+      },
+      "gen_lum": {
+        "shadows_pct": 0.9,
+        "midtones_pct": 12.4,
+        "highlights_pct": 86.7,
+        "mean_y": 220.0,
+        "std_dev": 36.8
+      },
+      "lum_delta": {
+        "shadows_delta": 0.9,
+        "midtones_delta": 7.4,
+        "highlights_delta": 8.3,
+        "mean_y_delta": 11.2,
+        "std_dev_delta": 15.3
+      },
+      "global_palette_delta_e": 5.21,
+      "spatial_mean_delta_e": 17.94,
+      "edge_structure_cosine": 0.5557,
+      "lab_cosine_similarity": 0.9586
+    },
+    "img3_recon_json": {
+      "orig": "test\\eval-bench\\img3_lemon_can.jpg",
+      "gen": "test\\eval-bench\\v2\\img3_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 0.0,
+        "midtones_pct": 5.0,
+        "highlights_pct": 95.0,
+        "mean_y": 231.2,
+        "std_dev": 21.5
+      },
+      "gen_lum": {
+        "shadows_pct": 0.2,
+        "midtones_pct": 9.2,
+        "highlights_pct": 90.6,
+        "mean_y": 226.7,
+        "std_dev": 29.9
+      },
+      "lum_delta": {
+        "shadows_delta": 0.2,
+        "midtones_delta": 4.2,
+        "highlights_delta": 4.4,
+        "mean_y_delta": 4.5,
+        "std_dev_delta": 8.4
+      },
+      "global_palette_delta_e": 4.38,
+      "spatial_mean_delta_e": 12.61,
+      "edge_structure_cosine": 0.6484,
+      "lab_cosine_similarity": 0.9802
+    }
+  },
+  "v1_improved_to_v2_delta": {
+    "img3_recon_short": {
+      "global_palette_delta_e": "8.40 -> 5.21 (-3.19)",
+      "spatial_mean_delta_e": "21.65 -> 17.94 (-3.71)",
+      "mean_y_delta": "13.1 -> 11.2 (-1.9)",
+      "edge_structure_cosine": "0.4300 -> 0.5557 (+0.1257)",
+      "lab_cosine_similarity": "0.9398 -> 0.9586 (+0.0188)"
+    },
+    "img3_recon_json": {
+      "global_palette_delta_e": "5.59 -> 4.38 (-1.21)",
+      "spatial_mean_delta_e": "18.36 -> 12.61 (-5.75)",
+      "mean_y_delta": "13.1 -> 4.5 (-8.6)",
+      "edge_structure_cosine": "0.4138 -> 0.6484 (+0.2346)",
+      "lab_cosine_similarity": "0.9607 -> 0.9802 (+0.0195)"
+    }
+  },
+  "visual_inspection": {
+    "img3_recon_short": "电报式无损模板精准还原9:16上下分栏波浪分隔构图、高调漫射光、哑光白易拉罐冷凝水珠与顶部柠檬角/绿叶（含左上方漂浮小叶），背景2D纯平矢量柠檬与浅蓝叶片/圆环比例协调，下方四层深海蓝与深灰蓝居中排版骨架稳定（LEMON SPARKLING / Fresh Citrus Refreshment / 鲜翠柠檬·劲爽气泡 / 0糖0脂·清爽解腻·冰镇更佳）。",
+    "img3_recon_json": "近乎像素级结构与文案复刻：罐身柠檬切片、波点整果、冷凝水珠、顶部柠檬角与双绿叶及左上悬浮小嫩叶位置精准；左右裁切背景柠檬与浅蓝叶片、浅冰蓝波浪地平线及四层完整原文（LEMON FIZZ / Light. Bubbly. Refreshing. / 小柠檬图标配双气泡 / 真柠檬汁≥10% / 0脂肪·0代糖·清爽解渴）全部准确还原，Lab相似度达0.9802、边缘余弦达0.6484。",
+    "img3_swap1": "跨品类跨色系换主体完全成功且零残留：磨砂透明紫玻璃汽水瓶与瓶口迷迭香/紫葡萄质感逼真，背景2D纯平矢量水果同步切换为紫葡萄串与切面，未残留任何柠檬或铝罐元素；9:16上下分栏波浪分隔、浅冰蓝/浅天蓝/明黄点缀色板、高调柔光与四层居中排版骨架（SPARKLING GRAPE SODA / Botanical Sparkling Refreshment / 天然鲜果味·清爽微气泡 / 真实果汁·0脂肪·清爽轻负担）完美保留。"
+  }
+}

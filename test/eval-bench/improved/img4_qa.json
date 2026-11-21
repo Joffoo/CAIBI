@@ -1,0 +1,157 @@
+{
+  "image_id": "img4",
+  "source_prompt_file": "test/eval-bench/improved/img4_norm.json",
+  "images": {
+    "original": "test/eval-bench/img4_city_poster.jpg",
+    "recon_json": "test/eval-bench/improved/img4_recon_json.webp",
+    "recon_short": "test/eval-bench/improved/img4_recon_short.webp"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "dimension": "subject",
+      "question": "海报中部细线方格框内是否居中放置了一台正面平视的像素化复古单反相机，且顶部带有梯形取景器与左右两侧黑色拨盘？"
+    },
+    {
+      "id": "Q2",
+      "dimension": "subject",
+      "question": "相机机身右上角是否有一枚珊瑚红小按钮？"
+    },
+    {
+      "id": "Q3",
+      "dimension": "subject",
+      "question": "相机中央圆形镜头是否由灰白、纯黑、亮蓝像素方块层层嵌套构成眼球瞳孔造型，且瞳孔右上方留有纯白高光？"
+    },
+    {
+      "id": "Q4",
+      "dimension": "subject",
+      "question": "相机左侧是否环绕有带明黄亮灯窗户的深蓝/黑灰高楼、暖黄光源路灯以及像素绿树？"
+    },
+    {
+      "id": "Q5",
+      "dimension": "subject",
+      "question": "相机右侧是否有钴蓝与珊瑚橙红渐变大楼、绿色灌木以及深蓝高架护栏？"
+    },
+    {
+      "id": "Q6",
+      "dimension": "action_pose",
+      "question": "右侧高架护栏上是否端坐着一只面向左侧的纯黑猫咪剪影？"
+    },
+    {
+      "id": "Q7",
+      "dimension": "details",
+      "question": "插画上方左侧是否飘浮浅蓝像素云朵，右侧是否有一颗明黄十字像素星辰与小片浅蓝云？"
+    },
+    {
+      "id": "Q8",
+      "dimension": "style_texture",
+      "question": "插画是否呈现像素拼贴造型，且色块内部带有粗糙的手绘蜡笔/油画棒/彩铅排线肌理与白色纸纹飞白（而非光滑矢量色块）？"
+    },
+    {
+      "id": "Q9",
+      "dimension": "composition",
+      "question": "画面是否为 9:16 竖向构图，且自上而下分为顶栏眉批、中部细线方格插画区、中下部主副标题与展期区、底部三栏落款与角标四层？"
+    },
+    {
+      "id": "Q10",
+      "dimension": "lighting",
+      "question": "画面整体是否为高调明亮的均匀平面漫射光，没有任何立体投影、长阴影或暗角？"
+    },
+    {
+      "id": "Q11",
+      "dimension": "color",
+      "question": "画面是否以大面积温润米白纸面铺底，主视觉为钴蓝/皇家蓝，并点缀明黄、珊瑚橙红、森林绿与纯黑？"
+    },
+    {
+      "id": "Q12",
+      "dimension": "text",
+      "question": "顶栏是否清晰完整包含“CITY / PHOTO / EXHIBITION”、“城市 / 摄影展”、“街道 / 日常 / 目光 / 构成一座城市”、“PHOTOGRAPHS / OF / OUR EVERYDAY / CITY”及右上角蓝白像素棋盘格图标？"
+    },
+    {
+      "id": "Q13",
+      "dimension": "text",
+      "question": "中部方格区左上角是否清晰显示“SAME / STREETS / DIFFERENT / EYES”，右上角是否清晰显示“在平凡的 / 街道里 / 看见 / 不平凡的生活”？"
+    },
+    {
+      "id": "Q14",
+      "dimension": "text",
+      "question": "中下部主标题是否为蓝色粗体蜡笔质感“城市在注视”（且“城”字左下缺口嵌明黄色块），其下依次清晰显示“THE CITY IS WATCHING”、“一组关于街道与日常目光的摄影作品”及“2026.09.18 — 10.12”？"
+    },
+    {
+      "id": "Q15",
+      "dimension": "text",
+      "question": "底栏左右是否各有一枚蓝白像素棋盘格图标，且中间三栏完整清晰包含“城市美术馆 / 1F 展览厅 / CITY ART MUSEUM / EXHIBITION HALL 1F”、“诚挚邀请您 / 共看这座城市 / YOU'RE INVITED”与“熟悉的街道 / 始终有新的目光 / MORE EYES / A BRIGHTER CITY”？"
+    }
+  ],
+  "results": {
+    "original": {
+      "image_path": "test/eval-bench/img4_city_poster.jpg",
+      "yes_count": 15,
+      "total": 15,
+      "pass_rate": 1.0,
+      "qa": [
+        { "id": "Q1", "answer": "yes", "note": "中部浅蓝细线方格框内居中放置正面平视像素复古单反，顶部带梯形取景器及左右各一枚黑色拨盘。" },
+        { "id": "Q2", "answer": "yes", "note": "相机右上角有一枚 2 格宽珊瑚红小按钮。" },
+        { "id": "Q3", "answer": "yes", "note": "中央镜头由灰白、纯黑、亮蓝与黑瞳孔像素块层层嵌套，瞳孔右上方有一格纯白高光。" },
+        { "id": "Q4", "answer": "yes", "note": "左侧有带明黄亮灯窗户的深蓝/黑灰高楼、向下投射暖黄方块光的深蓝路灯与像素绿树。" },
+        { "id": "Q5", "answer": "yes", "note": "右侧有钴蓝及珊瑚橙红渐变大楼、绿色灌木与深蓝高架护栏。" },
+        { "id": "Q6", "answer": "yes", "note": "右侧高架护栏上端坐一只面向左侧的纯黑猫咪剪影。" },
+        { "id": "Q7", "answer": "yes", "note": "上方左侧有浅蓝像素云，右侧有明黄十字像素星辰与小片浅蓝云。" },
+        { "id": "Q8", "answer": "yes", "note": "像素方格内部具有明显蜡笔/油画棒排线与白色纸纹飞白。" },
+        { "id": "Q9", "answer": "yes", "note": "9:16 竖向构图，严格分为四层排版。" },
+        { "id": "Q10", "answer": "yes", "note": "高调明亮平光漫射，无投影或暗角。" },
+        { "id": "Q11", "answer": "yes", "note": "米白纸底配钴蓝/皇家蓝主色及明黄、珊瑚橙红、森林绿、纯黑点缀。" },
+        { "id": "Q12", "answer": "yes", "note": "顶栏四段中英文文案与右上角蓝白棋盘格图标均清晰准确。" },
+        { "id": "Q13", "answer": "yes", "note": "方格内左上角与右上角中英文标语清晰准确。" },
+        { "id": "Q14", "answer": "yes", "note": "主标题“城市在注视”（含“城”字黄块）及下方副标题、中文小字与展期完整准确。" },
+        { "id": "Q15", "answer": "yes", "note": "底栏左右角标及中间三栏落款完整清晰。" }
+      ]
+    },
+    "recon_json": {
+      "image_path": "test/eval-bench/improved/img4_recon_json.webp",
+      "yes_count": 4,
+      "total": 15,
+      "pass_rate": 0.2667,
+      "qa": [
+        { "id": "Q1", "answer": "no", "note": "相机居中且左右肩部均有黑色拨盘（右侧带橙红顶盖），但外框仅为单层矩形细线框而无内部方格网格，顶部取景器呈直角矩形而非梯形，机身主体也未呈像素块拼贴。" },
+        { "id": "Q2", "answer": "yes", "note": "相机机身右上角有一枚珊瑚红矩形小按钮。" },
+        { "id": "Q3", "answer": "yes", "note": "中央圆形镜头由灰白、黑与亮蓝像素方块层层嵌套构成眼球瞳孔造型，瞳孔右上方留有白色高光。" },
+        { "id": "Q4", "answer": "no", "note": "左侧有带明黄亮灯窗户的黑灰高楼与暖黄光源路灯，但左下角绿植为圆弧形手绘蜡笔灌木，并非像素绿树。" },
+        { "id": "Q5", "answer": "no", "note": "右侧有钴蓝至珊瑚橙红渐变斜顶大楼与绿色灌木，但护栏为浅灰底配蓝色细线的斜向栏杆，而非深蓝高架护栏。" },
+        { "id": "Q6", "answer": "no", "note": "右侧护栏上端坐一只猫咪剪影，但通体为钴蓝色而非纯黑色。" },
+        { "id": "Q7", "answer": "no", "note": "右上方有明黄十字与一小块浅蓝矩形，但左上方为圆弧轮廓的手绘浅蓝云朵，并非像素云朵。" },
+        { "id": "Q8", "answer": "no", "note": "色块内部具有明显的手绘蜡笔排线肌理与白色纸纹飞白，但除镜头外，云朵、建筑、灌木、猫咪与路灯均为连续手绘线条造型，整体未呈现像素拼贴造型。" },
+        { "id": "Q9", "answer": "no", "note": "虽大致分为四层排版，但画幅为 1:1 正方形而非 9:16 竖向构图，且中部插画框内无方格线。" },
+        { "id": "Q10", "answer": "yes", "note": "整体为高调明亮均匀平面漫射光，无立体投影、长阴影或暗角。" },
+        { "id": "Q11", "answer": "yes", "note": "温润米白纸面铺底，主视觉为钴蓝/皇家蓝，点缀明黄、珊瑚橙红、森林绿与纯黑。" },
+        { "id": "Q12", "answer": "no", "note": "顶栏第三栏中文“街道”误写为“行道”（“行道 / 日常 / 目光 / 构成一座城市”），其余三栏英文、中文“城市 / 摄影展”及右上角蓝白棋盘格基本清晰。" },
+        { "id": "Q13", "answer": "no", "note": "两段文字均位于插画框上方外侧而非方格区内部，且右侧中文误写为“在平平的 / 行道里 / 看见 / 不平平的生活”。" },
+        { "id": "Q14", "answer": "no", "note": "主标题“城市在注视”（含“城”字黄块）、“THE CITY IS WATCHING”及“2026.09.18 — 10.12”清晰准确，但中文副句乱码（“一组关于衍道与日常目七的臆展方品”）。" },
+        { "id": "Q15", "answer": "no", "note": "底栏左右各有一枚蓝白棋盘格图标，但中间三栏中文内容大面积乱码失真，右栏及左下部分英文亦出现错乱重复。" }
+      ]
+    },
+    "recon_short": {
+      "image_path": "test/eval-bench/improved/img4_recon_short.webp",
+      "yes_count": 2,
+      "total": 15,
+      "pass_rate": 0.1333,
+      "qa": [
+        { "id": "Q1", "answer": "no", "note": "中部细线方格框内仅有一颗悬浮圆形眼球，完全没有复古单反相机、梯形取景器及黑色拨盘。" },
+        { "id": "Q2", "answer": "no", "note": "无相机机身，亦无珊瑚红小按钮。" },
+        { "id": "Q3", "answer": "no", "note": "中央圆形眼球仅为手绘黑灰白同心圆，无亮蓝像素方块层层嵌套，瞳孔高光为双侧楔形缺口而非右上方纯白像素高光。" },
+        { "id": "Q4", "answer": "no", "note": "左侧高楼无明黄亮灯窗户，无路灯（路灯移至右侧），且绿树为手绘圆顶蜡笔树而非像素绿树。" },
+        { "id": "Q5", "answer": "no", "note": "右侧无钴蓝与珊瑚橙红渐变大楼，护栏为斜向蓝色细栏杆，无原版深蓝高架护栏结构。" },
+        { "id": "Q6", "answer": "no", "note": "右侧斜向护栏上的纯黑动物剪影呈向右上方行进/奔跑姿态，并非端坐面向左侧的猫咪。" },
+        { "id": "Q7", "answer": "no", "note": "插画上方左右均无浅蓝像素云朵与明黄十字像素星辰。" },
+        { "id": "Q8", "answer": "no", "note": "具备手绘蜡笔排线肌理与纸纹飞白，但插画为常规手绘城市与眼球线条画，而非像素拼贴造型。" },
+        { "id": "Q9", "answer": "no", "note": "画幅为 1:1 正方形，外围带四面蓝色方格边框与四角棋盘格，内部仅三行结构，与 9:16 四层排版完全不同。" },
+        { "id": "Q10", "answer": "yes", "note": "画面整体为高调明亮均匀平面漫射光，无立体投影、长阴影或暗角。" },
+        { "id": "Q11", "answer": "yes", "note": "内框以大面积温润米白纸面铺底，主视觉为钴蓝/皇家蓝，并点缀明黄、珊瑚橙红、森林绿与纯黑。" },
+        { "id": "Q12", "answer": "no", "note": "顶栏被替换为“A visual journey through pixel art history”，不包含原版展讯文案。" },
+        { "id": "Q13", "answer": "no", "note": "中部方格区无“SAME / STREETS / DIFFERENT / EYES”及对应中文文案。" },
+        { "id": "Q14", "answer": "no", "note": "中下部无“城市在注视”及下方对应中英文副标题与展期。" },
+        { "id": "Q15", "answer": "no", "note": "底栏被替换为“视觉之旅：像素艺术的历史”，四角虽有棋盘格但无三栏落款内容。" }
+      ]
+    }
+  }
+}

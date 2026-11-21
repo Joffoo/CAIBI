@@ -1,0 +1,51 @@
+{
+  "benchmark": "vrc-5-image-eval",
+  "created_at": "2026-11-18",
+  "images": [
+    {
+      "id": "img1",
+      "file": "img1_portrait.jpg",
+      "category": "Realistic close-up portrait",
+      "dimensions": "682x1024",
+      "aspect_ratio": "2:3",
+      "source": "user_uploaded",
+      "notes": "Hard sunlight close-up portrait of woman eating bright cyan/blue ice cream with red lipstick and freckles"
+    },
+    {
+      "id": "img2",
+      "file": "img2_beach_frame.jpg",
+      "category": "Framing / lifestyle film photography",
+      "dimensions": "736x736",
+      "aspect_ratio": "1:1",
+      "source": "user_uploaded",
+      "notes": "Square film photo of woman on beach framed through foreground out-of-focus fingers/hands"
+    },
+    {
+      "id": "img3",
+      "file": "img3_lemon_can.jpg",
+      "category": "Product / commercial poster",
+      "dimensions": "576x1024",
+      "aspect_ratio": "9:16",
+      "source": "user_uploaded",
+      "notes": "High-key commercial product poster for LEMON FIZZ / 柠檬气泡饮 with bilingual typography and flat pastel illustration"
+    },
+    {
+      "id": "img4",
+      "file": "img4_city_poster.jpg",
+      "category": "Graphic poster with typography",
+      "dimensions": "576x1024",
+      "aspect_ratio": "9:16",
+      "source": "user_uploaded",
+      "notes": "Exhibition poster '城市在注视 THE CITY IS WATCHING' with pixel-mosaic camera/cityscape on grid paper"
+    },
+    {
+      "id": "img5",
+      "file": "img5_dark_elf.jpg",
+      "category": "Illustration / low-key dark art",
+      "dimensions": "736x918",
+      "aspect_ratio": "4:5",
+      "source": "user_uploaded",
+      "notes": "Low-key dark fantasy illustration of silver-haired elf woman looking up on textured black background"
+    }
+  ]
+}

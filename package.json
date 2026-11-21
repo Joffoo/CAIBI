@@ -1,0 +1,35 @@
+{
+  "name": "visual-reverse-compiler",
+  "description": "Cursor-Resident Visual Reverse-Engineering & Asset Compiler (MV3)",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "node test/e2e.mjs",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "idb": "^8.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.280",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@wxt-dev/module-react": "^1.1.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "puppeteer-core": "^25.18.1",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3",
+    "wxt": "^0.19.13"
+  }
+}

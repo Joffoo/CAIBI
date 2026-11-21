@@ -1,0 +1,77 @@
+{
+  "image": "test/eval-bench/img2_beach_frame.jpg",
+  "compare": {
+    "img2_recon_short": {
+      "orig": "test\\eval-bench\\img2_beach_frame.jpg",
+      "gen": "test\\eval-bench\\baseline\\img2_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 34.2,
+        "midtones_pct": 57.4,
+        "highlights_pct": 8.4,
+        "mean_y": 110.3,
+        "std_dev": 57.2
+      },
+      "gen_lum": {
+        "shadows_pct": 52.8,
+        "midtones_pct": 40.6,
+        "highlights_pct": 6.6,
+        "mean_y": 84.6,
+        "std_dev": 59.2
+      },
+      "lum_delta": {
+        "shadows_delta": 18.6,
+        "midtones_delta": 16.8,
+        "highlights_delta": 1.8,
+        "mean_y_delta": 25.7,
+        "std_dev_delta": 2.0
+      },
+      "global_palette_delta_e": 15.39,
+      "spatial_mean_delta_e": 35.03,
+      "edge_structure_cosine": 0.5492,
+      "lab_cosine_similarity": 0.7576
+    },
+    "img2_recon_json": {
+      "orig": "test\\eval-bench\\img2_beach_frame.jpg",
+      "gen": "test\\eval-bench\\baseline\\img2_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 34.2,
+        "midtones_pct": 57.4,
+        "highlights_pct": 8.4,
+        "mean_y": 110.3,
+        "std_dev": 57.2
+      },
+      "gen_lum": {
+        "shadows_pct": 55.8,
+        "midtones_pct": 34.0,
+        "highlights_pct": 10.1,
+        "mean_y": 81.5,
+        "std_dev": 70.1
+      },
+      "lum_delta": {
+        "shadows_delta": 21.6,
+        "midtones_delta": 23.4,
+        "highlights_delta": 1.7,
+        "mean_y_delta": 28.8,
+        "std_dev_delta": 12.9
+      },
+      "global_palette_delta_e": 20.71,
+      "spatial_mean_delta_e": 35.1,
+      "edge_structure_cosine": 0.5233,
+      "lab_cosine_similarity": 0.7367
+    }
+  },
+  "swap_visual_inspection": {
+    "img2_swap1": {
+      "prompt_subject": "一位身穿宝蓝色冲锋衣的短发少年站在雪山湖畔边回头微笑",
+      "pass": true,
+      "style_and_framing": "完整保留 1:1 比例、极近景虚化暗褐色双手前景框、右上角清冷天空、35mm 胶片颗粒感与高反差侧逆光暖琥珀/灰绿青调。",
+      "subject_fidelity": "准确呈现身穿宝蓝色冲锋衣的短发少年站在雪山湖畔回头微笑，发丝带暖金色边缘光，无原图海滩、海浪或芥末黄 T 恤泄漏。"
+    },
+    "img2_swap2": {
+      "prompt_subject": "一只站在秋日金色银杏林小径上的白色萨摩耶犬",
+      "pass": true,
+      "style_and_framing": "完整保留 1:1 比例、极近景虚化双手前景框、35mm 胶片颗粒感与高反差侧逆光胶片色调。",
+      "subject_fidelity": "准确呈现白色萨摩耶犬站在铺满落叶的林间小径中央，光影自然，无原图人物或海滩元素泄漏；受复古低饱和灰绿青调风格锁定影响，背景秋叶金色略偏暗沉复古，整体换主体效果稳定。"
+    }
+  }
+}

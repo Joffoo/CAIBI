@@ -1,0 +1,182 @@
+[
+  {
+    "case": "img4_a1_no_nums",
+    "orig": "test\\eval-bench\\img4_city_poster.jpg",
+    "gen": "test\\eval-bench\\ablation\\img4_a1_no_nums.webp",
+    "orig_lum": {
+      "shadows_pct": 4.7,
+      "midtones_pct": 28.2,
+      "highlights_pct": 67.0,
+      "mean_y": 196.0,
+      "std_dev": 66.4
+    },
+    "gen_lum": {
+      "shadows_pct": 7.6,
+      "midtones_pct": 26.8,
+      "highlights_pct": 65.7,
+      "mean_y": 191.8,
+      "std_dev": 73.0
+    },
+    "lum_delta": {
+      "shadows_delta": 2.9,
+      "midtones_delta": 1.4,
+      "highlights_delta": 1.3,
+      "mean_y_delta": 4.2,
+      "std_dev_delta": 6.6
+    },
+    "global_palette_delta_e": 2.24,
+    "spatial_mean_delta_e": 25.94,
+    "edge_structure_cosine": 0.597,
+    "lab_cosine_similarity": 0.9081
+  },
+  {
+    "case": "img4_a2_no_smalltext",
+    "orig": "test\\eval-bench\\img4_city_poster.jpg",
+    "gen": "test\\eval-bench\\ablation\\img4_a2_no_smalltext.webp",
+    "orig_lum": {
+      "shadows_pct": 4.7,
+      "midtones_pct": 28.2,
+      "highlights_pct": 67.0,
+      "mean_y": 196.0,
+      "std_dev": 66.4
+    },
+    "gen_lum": {
+      "shadows_pct": 15.7,
+      "midtones_pct": 21.2,
+      "highlights_pct": 63.1,
+      "mean_y": 180.4,
+      "std_dev": 77.5
+    },
+    "lum_delta": {
+      "shadows_delta": 11.0,
+      "midtones_delta": 7.0,
+      "highlights_delta": 3.9,
+      "mean_y_delta": 15.6,
+      "std_dev_delta": 11.1
+    },
+    "global_palette_delta_e": 8.0,
+    "spatial_mean_delta_e": 29.65,
+    "edge_structure_cosine": 0.5873,
+    "lab_cosine_similarity": 0.8755
+  },
+  {
+    "case": "img4_a3_no_style",
+    "orig": "test\\eval-bench\\img4_city_poster.jpg",
+    "gen": "test\\eval-bench\\ablation\\img4_a3_no_style.webp",
+    "orig_lum": {
+      "shadows_pct": 4.7,
+      "midtones_pct": 28.2,
+      "highlights_pct": 67.0,
+      "mean_y": 196.0,
+      "std_dev": 66.4
+    },
+    "gen_lum": {
+      "shadows_pct": 6.7,
+      "midtones_pct": 19.9,
+      "highlights_pct": 73.4,
+      "mean_y": 206.2,
+      "std_dev": 67.8
+    },
+    "lum_delta": {
+      "shadows_delta": 2.0,
+      "midtones_delta": 8.3,
+      "highlights_delta": 6.4,
+      "mean_y_delta": 10.2,
+      "std_dev_delta": 1.4
+    },
+    "global_palette_delta_e": 3.83,
+    "spatial_mean_delta_e": 23.05,
+    "edge_structure_cosine": 0.5971,
+    "lab_cosine_similarity": 0.9232
+  },
+  {
+    "case": "img2_b1_no_darkbias",
+    "orig": "test\\eval-bench\\img2_beach_frame.jpg",
+    "gen": "test\\eval-bench\\ablation\\img2_b1_no_darkbias.webp",
+    "orig_lum": {
+      "shadows_pct": 34.2,
+      "midtones_pct": 57.4,
+      "highlights_pct": 8.4,
+      "mean_y": 110.3,
+      "std_dev": 57.2
+    },
+    "gen_lum": {
+      "shadows_pct": 37.0,
+      "midtones_pct": 54.2,
+      "highlights_pct": 8.7,
+      "mean_y": 105.1,
+      "std_dev": 64.1
+    },
+    "lum_delta": {
+      "shadows_delta": 2.8,
+      "midtones_delta": 3.2,
+      "highlights_delta": 0.3,
+      "mean_y_delta": 5.2,
+      "std_dev_delta": 6.9
+    },
+    "global_palette_delta_e": 14.01,
+    "spatial_mean_delta_e": 33.22,
+    "edge_structure_cosine": 0.5379,
+    "lab_cosine_similarity": 0.7778
+  },
+  {
+    "case": "img2_b2_no_nums",
+    "orig": "test\\eval-bench\\img2_beach_frame.jpg",
+    "gen": "test\\eval-bench\\ablation\\img2_b2_no_nums.webp",
+    "orig_lum": {
+      "shadows_pct": 34.2,
+      "midtones_pct": 57.4,
+      "highlights_pct": 8.4,
+      "mean_y": 110.3,
+      "std_dev": 57.2
+    },
+    "gen_lum": {
+      "shadows_pct": 26.3,
+      "midtones_pct": 38.7,
+      "highlights_pct": 34.9,
+      "mean_y": 133.6,
+      "std_dev": 75.5
+    },
+    "lum_delta": {
+      "shadows_delta": 7.9,
+      "midtones_delta": 18.7,
+      "highlights_delta": 26.5,
+      "mean_y_delta": 23.3,
+      "std_dev_delta": 18.3
+    },
+    "global_palette_delta_e": 14.21,
+    "spatial_mean_delta_e": 32.72,
+    "edge_structure_cosine": 0.4828,
+    "lab_cosine_similarity": 0.8094
+  },
+  {
+    "case": "img2_b3_no_details",
+    "orig": "test\\eval-bench\\img2_beach_frame.jpg",
+    "gen": "test\\eval-bench\\ablation\\img2_b3_no_details.webp",
+    "orig_lum": {
+      "shadows_pct": 34.2,
+      "midtones_pct": 57.4,
+      "highlights_pct": 8.4,
+      "mean_y": 110.3,
+      "std_dev": 57.2
+    },
+    "gen_lum": {
+      "shadows_pct": 38.3,
+      "midtones_pct": 48.3,
+      "highlights_pct": 13.4,
+      "mean_y": 103.3,
+      "std_dev": 71.0
+    },
+    "lum_delta": {
+      "shadows_delta": 4.1,
+      "midtones_delta": 9.1,
+      "highlights_delta": 5.0,
+      "mean_y_delta": 7.0,
+      "std_dev_delta": 13.8
+    },
+    "global_palette_delta_e": 11.62,
+    "spatial_mean_delta_e": 34.58,
+    "edge_structure_cosine": 0.5311,
+    "lab_cosine_similarity": 0.7741
+  }
+]

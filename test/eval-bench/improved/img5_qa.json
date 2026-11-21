@@ -1,0 +1,216 @@
+{
+  "target": "img5",
+  "source_prompt_file": "test/eval-bench/improved/img5_norm.json",
+  "baseline_qa_file": "test/eval-bench/baseline/img5_qa.json",
+  "images": {
+    "original": "test/eval-bench/img5_dark_elf.jpg",
+    "recon_json": "test/eval-bench/improved/img5_recon_json.webp",
+    "recon_short": "test/eval-bench/improved/img5_recon_short.webp"
+  },
+  "total_questions": 15,
+  "questions": [
+    {
+      "id": "Q1",
+      "dimension": "主体",
+      "field": "subject",
+      "question": "画面中央是否为一位银灰白发、带有尖长精灵耳的女性精灵？"
+    },
+    {
+      "id": "Q2",
+      "dimension": "主体",
+      "field": "subject",
+      "question": "人物是否在画面左侧（人物右侧）编有一条粗长麻花辫并垂落至肩臂外侧？"
+    },
+    {
+      "id": "Q3",
+      "dimension": "主体",
+      "field": "subject",
+      "question": "人物耳部是否佩戴有细长的银灰色圆环耳饰？"
+    },
+    {
+      "id": "Q4",
+      "dimension": "主体",
+      "field": "subject",
+      "question": "人物是否身穿暖赭棕色泡泡袖上衣，且胸前带有心形镂空花边装饰？"
+    },
+    {
+      "id": "Q5",
+      "dimension": "主体",
+      "field": "subject",
+      "question": "人物领口红宝石胸针处是否垂落有两条细长米白色缎带至胸腹下方？"
+    },
+    {
+      "id": "Q6",
+      "dimension": "主体",
+      "field": "subject",
+      "question": "人物腰部是否束有深炭黑褐色紧身胸衣？"
+    },
+    {
+      "id": "Q7",
+      "dimension": "动作",
+      "field": "subject / composition_camera",
+      "question": "人物头部是否剧烈向后仰起、下巴高抬，且双目向上凝视？"
+    },
+    {
+      "id": "Q8",
+      "dimension": "动作",
+      "field": "subject",
+      "question": "人物双臂是否向前收拢，双手在画面底部中央的腰腹前松散交叠？"
+    },
+    {
+      "id": "Q9",
+      "dimension": "构图",
+      "field": "composition_camera",
+      "question": "画面是否为 4:5 竖幅构图（高度明显大于宽度）？"
+    },
+    {
+      "id": "Q10",
+      "dimension": "构图",
+      "field": "composition_camera",
+      "question": "人物是否居中对称排列，且上方与左右两侧留有大面积纯黑负空间？"
+    },
+    {
+      "id": "Q11",
+      "dimension": "光影",
+      "field": "lighting_atmosphere",
+      "question": "画面整体是否保持极暗低调（Low-Key Dark）光影氛围，人物皮肤与浅色服饰均呈做旧暗调而无亮白高对比？"
+    },
+    {
+      "id": "Q12",
+      "dimension": "色彩",
+      "field": "color_palette",
+      "question": "人物双颊是否带有柔和的玫瑰红/桃红色腮红？"
+    },
+    {
+      "id": "Q13",
+      "dimension": "色彩",
+      "field": "color_palette",
+      "question": "人物指尖是否涂有粉红色长尖指甲？"
+    },
+    {
+      "id": "Q14",
+      "dimension": "细节",
+      "field": "details_texture",
+      "question": "人物一只手的手背上是否绘有深黑色细密繁复的花纹刺青？"
+    },
+    {
+      "id": "Q15",
+      "dimension": "细节",
+      "field": "style_medium / details_texture",
+      "question": "画面是否呈现精细黑色钢笔勾线与做旧水彩质感，且全图覆有老旧纸张颗粒、斑点或刮痕肌理？"
+    }
+  ],
+  "results": {
+    "original": {
+      "image_path": "test/eval-bench/img5_dark_elf.jpg",
+      "passed": 15,
+      "total": 15,
+      "pass_rate": 1.0,
+      "answers": [
+        { "id": "Q1", "answer": "yes", "observation": "画面中央为银灰白发、双侧尖长精灵耳的女性角色。" },
+        { "id": "Q2", "answer": "yes", "observation": "一条粗长松散麻花辫位于画面左侧，垂落至左侧泡泡袖与手臂外侧。" },
+        { "id": "Q3", "answer": "yes", "observation": "双耳可见细长银灰色圆环耳饰（画面右侧可见两个圆环，左侧可见一个）。" },
+        { "id": "Q4", "answer": "yes", "observation": "身穿暖赭棕色泡泡袖上衣，胸前为荷叶边围合的心形镂空。" },
+        { "id": "Q5", "answer": "yes", "observation": "高领处系米白细带并别鲜红宝石胸针，两条细长米白缎带垂落至胸腹下方。" },
+        { "id": "Q6", "answer": "yes", "observation": "腰部束有深炭黑褐色紧身胸衣。" },
+        { "id": "Q7", "answer": "yes", "observation": "头部剧烈后仰、下巴高抬，双目向上凝视。" },
+        { "id": "Q8", "answer": "yes", "observation": "双臂向前收拢，双手在底部中央腰腹前松散交叠。" },
+        { "id": "Q9", "answer": "yes", "observation": "原图尺寸 736x918，为 4:5 竖幅构图。" },
+        { "id": "Q10", "answer": "yes", "observation": "人物居中对称，上方与左右两侧留有大面积纯黑负空间。" },
+        { "id": "Q11", "answer": "yes", "observation": "全图明度极低，皮肤、白发与米白缎带均呈压暗的做旧低调质感。" },
+        { "id": "Q12", "answer": "yes", "observation": "双颊与鼻梁带有明显的柔和玫瑰桃红晕。" },
+        { "id": "Q13", "answer": "yes", "observation": "可见粉红色长尖指甲。" },
+        { "id": "Q14", "answer": "yes", "observation": "画面左侧手背上绘有一小块深黑色细密蕾丝花纹刺青。" },
+        { "id": "Q15", "answer": "yes", "observation": "黑色钢笔勾线与排线阴影结合做旧水彩，全图布满细微灰白斑点与纸张肌理。" }
+      ]
+    },
+    "recon_json": {
+      "image_path": "test/eval-bench/improved/img5_recon_json.webp",
+      "passed": 11,
+      "total": 15,
+      "pass_rate": 0.7333,
+      "answers": [
+        { "id": "Q1", "answer": "yes", "observation": "画面中央为银灰白发、双侧尖长精灵耳的女性角色。" },
+        { "id": "Q2", "answer": "no", "observation": "粗长麻花辫出现在画面右侧（人物左侧）手臂后方，而非画面左侧肩臂外侧。" },
+        { "id": "Q3", "answer": "yes", "observation": "双侧耳垂各佩戴有一枚细长银灰色圆环耳饰。" },
+        { "id": "Q4", "answer": "yes", "observation": "身穿暖赭棕色泡泡袖上衣，胸前带有明显的荷叶花边心形镂空装饰。" },
+        { "id": "Q5", "answer": "no", "observation": "高领处别有红宝石胸针，但两条细长米白缎带系于领口两侧下方，并非从胸针处垂落。" },
+        { "id": "Q6", "answer": "yes", "observation": "腰部束有深炭黑褐色紧身胸衣。" },
+        { "id": "Q7", "answer": "yes", "observation": "头部剧烈向后仰起、下巴高抬，双目向上凝视。" },
+        { "id": "Q8", "answer": "yes", "observation": "双臂向前收拢，双手在底部中央腰腹前交叠。" },
+        { "id": "Q9", "answer": "no", "observation": "图像尺寸为 1024x1024，属于 1:1 正方形构图而非 4:5 竖幅。" },
+        { "id": "Q10", "answer": "yes", "observation": "人物居中对称排列，上方与左右两侧留有大面积纯黑负空间。" },
+        { "id": "Q11", "answer": "no", "observation": "人物面部、心形镂空处及双臂双手皮肤呈明亮的浅米白色，与纯黑背景形成较强明暗对比，未保持极暗低调的压暗质感。" },
+        { "id": "Q12", "answer": "yes", "observation": "双颊与鼻梁带有柔和的玫瑰红/桃红色排线腮红。" },
+        { "id": "Q13", "answer": "yes", "observation": "十指指尖涂有暗粉红色/玫瑰红色长尖指甲。" },
+        { "id": "Q14", "answer": "yes", "observation": "上方手背上绘有大块深黑色细密繁复的蕾丝花纹刺青。" },
+        { "id": "Q15", "answer": "yes", "observation": "呈现精细黑色钢笔勾线排线与做旧水彩质感，全图覆有纸张斑点与边缘磨损刮痕肌理。" }
+      ]
+    },
+    "recon_short": {
+      "image_path": "test/eval-bench/improved/img5_recon_short.webp",
+      "passed": 6,
+      "total": 15,
+      "pass_rate": 0.4,
+      "answers": [
+        { "id": "Q1", "answer": "yes", "observation": "画面中央为银灰白发、双侧尖长精灵耳的女性角色。" },
+        { "id": "Q2", "answer": "no", "observation": "粗长麻花辫位于画面右侧（人物左侧）并垂落于胸前，而非画面左侧肩臂外侧。" },
+        { "id": "Q3", "answer": "no", "observation": "画面左侧耳部为小圆钉耳饰，右侧耳部为多珠垂坠耳饰，均非细长的银灰色圆环耳饰。" },
+        { "id": "Q4", "answer": "no", "observation": "身穿暖赭棕色泡泡袖上衣，但胸前为蕾丝花边大V领敞口露黑底，无心形镂空装饰。" },
+        { "id": "Q5", "answer": "no", "observation": "颈部米白缎带别有红宝石胸针，但下方垂落的两条缎带较宽且仅及胸口中部，未细长垂落至胸腹下方。" },
+        { "id": "Q6", "answer": "yes", "observation": "腰部束有深炭黑褐色紧身胸衣。" },
+        { "id": "Q7", "answer": "yes", "observation": "头部剧烈向后仰起、下巴高抬，双目向上凝视。" },
+        { "id": "Q8", "answer": "yes", "observation": "双臂向前收拢，双手在底部中央腰腹前十指交叠。" },
+        { "id": "Q9", "answer": "no", "observation": "图像尺寸为 1024x1024，属于 1:1 正方形构图而非 4:5 竖幅。" },
+        { "id": "Q10", "answer": "yes", "observation": "人物居中对称排列，上方与左右两侧留有大面积纯黑负空间。" },
+        { "id": "Q11", "answer": "no", "observation": "人物面部、双手及缎带呈较亮的灰白色，与纯黑颈影及背景形成高反差，未保持极暗低调的整体暗调。" },
+        { "id": "Q12", "answer": "no", "observation": "面部近乎黑白灰单色线稿阴影，无玫瑰红/桃红色腮红。" },
+        { "id": "Q13", "answer": "no", "observation": "长尖指甲呈灰米白色，未涂粉红色。" },
+        { "id": "Q14", "answer": "no", "observation": "双手手背仅有排线与零星斑点，未绘有深黑色细密繁复的花纹刺青。" },
+        { "id": "Q15", "answer": "yes", "observation": "呈现黑色钢笔勾线排线与做旧水彩质感，全图覆有明显的老旧纸张刮痕与斑点肌理。" }
+      ]
+    }
+  },
+  "summary": {
+    "pass_rates": {
+      "original": 1.0,
+      "recon_json": 0.7333,
+      "recon_short": 0.4
+    },
+    "delta_vs_baseline": {
+      "recon_json": {
+        "baseline_passed": 11,
+        "improved_passed": 11,
+        "baseline_pass_rate": 0.7333,
+        "improved_pass_rate": 0.7333,
+        "delta": 0.0
+      },
+      "recon_short": {
+        "baseline_passed": 8,
+        "improved_passed": 6,
+        "baseline_pass_rate": 0.5333,
+        "improved_pass_rate": 0.4,
+        "delta": -0.1333
+      }
+    },
+    "major_failures": {
+      "recon_json": [
+        "Q2: 麻花辫位于画面右侧手臂后方，而非画面左侧肩臂外侧",
+        "Q5: 两条细长米白缎带从领口两侧垂落，而非从红宝石胸针处垂落",
+        "Q9: 输出为 1:1 正方形（1024x1024），未遵循 4:5 竖幅构图",
+        "Q11: 面部、胸前镂空与手臂皮肤偏亮米白，未保持极暗低调暗度"
+      ],
+      "recon_short": [
+        "Q2: 麻花辫位于画面右侧胸前，而非画面左侧肩臂外侧",
+        "Q3: 耳饰变为小圆钉与串珠垂坠耳饰，而非银灰色圆环耳饰",
+        "Q4: 胸前变为黑底蕾丝V领，缺失心形镂空装饰",
+        "Q5: 胸针下方缎带偏宽且较短，未细长垂落至胸腹下方",
+        "Q9: 输出为 1:1 正方形（1024x1024），未遵循 4:5 竖幅构图",
+        "Q11: 面部与手部灰白反差较高，未保持极暗低调质感",
+        "Q12: 缺失玫瑰红/桃红色腮红",
+        "Q13: 指甲为灰米色，缺失粉红色涂装",
+        "Q14: 手背缺失深黑色繁复花纹刺青"
+      ]
+    }
+  }
+}

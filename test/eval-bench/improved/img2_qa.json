@@ -1,0 +1,317 @@
+{
+  "image_id": "img2",
+  "source_prompt_file": "test/eval-bench/improved/img2_norm.json",
+  "images": {
+    "original": "test/eval-bench/img2_beach_frame.jpg",
+    "recon_json": "test/eval-bench/improved/img2_recon_json.webp",
+    "recon_short": "test/eval-bench/improved/img2_recon_short.webp"
+  },
+  "total_questions": 15,
+  "summary": {
+    "original": {
+      "yes": 15,
+      "no": 0,
+      "total": 15,
+      "pass_rate": 1.0
+    },
+    "recon_json": {
+      "yes": 7,
+      "no": 8,
+      "total": 15,
+      "pass_rate": 0.4667
+    },
+    "recon_short": {
+      "yes": 5,
+      "no": 10,
+      "total": 15,
+      "pass_rate": 0.3333
+    }
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "dimension": "subject",
+      "question": "画面中央是否站着一位在海边浅水浪花中、背对镜头并回头微笑的年轻女孩？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "画面中央偏下位置女孩站立在海边浅浪中，背对镜头并回头微笑。"
+        },
+        "recon_json": {
+          "answer": "yes",
+          "note": "画面中央女孩站在海边浅水泡沫中，背对镜头并回头微笑。"
+        },
+        "recon_short": {
+          "answer": "yes",
+          "note": "画面中央女孩站在海边浅水浪花中，背身并转头微笑。"
+        }
+      }
+    },
+    {
+      "id": "Q2",
+      "dimension": "subject",
+      "question": "女孩的头发是否为及腰的深棕色微卷长发？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "深棕色微卷长发自然垂落至腰际。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "女孩头发仅至肩背上方（齐肩中短发长度），明显未及腰。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "女孩头发为紧实的小卷发，长度仅垂至中背部/手肘附近，下方仍有大段 T 恤衣身，未及腰际。"
+        }
+      }
+    },
+    {
+      "id": "Q3",
+      "dimension": "subject",
+      "question": "女孩是否向右后方转头回眸（面部朝向右侧或右前方，而非转向左侧）？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "女孩向右后方转头回眸，面部微向右侧。"
+        },
+        "recon_json": {
+          "answer": "yes",
+          "note": "女孩背对镜头，从右肩方向向右后方转头回眸微笑。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "女孩从左肩方向向画面左侧转头回眸，面部朝向左侧而非右侧。"
+        }
+      }
+    },
+    {
+      "id": "Q4",
+      "dimension": "subject",
+      "question": "女孩是否身穿贴身的芥末黄色（暗调下呈沉稳赭黄）短袖圆领 T 恤？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "身穿贴身的沉稳赭黄/芥末黄短袖圆领 T 恤。"
+        },
+        "recon_json": {
+          "answer": "yes",
+          "note": "身穿贴身的暖赭黄/芥末黄色短袖圆领 T 恤。"
+        },
+        "recon_short": {
+          "answer": "yes",
+          "note": "身穿芥末黄色短袖 T 恤（版型略偏宽松落肩，色调符合芥末黄）。"
+        }
+      }
+    },
+    {
+      "id": "Q5",
+      "dimension": "subject",
+      "question": "在前景下方横向手指的下方，是否隐约露出一小截红白条纹下装边缘？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "前景横向手指下方隐约露出一小截红白条纹下装边缘。"
+        },
+        "recon_json": {
+          "answer": "yes",
+          "note": "前景下方横向手指的下方、画面底端露出一小截红白相间条纹/格纹下装边缘。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "前景下方横向手指的下方仅见黄色 T 恤下摆，未见红白条纹下装。"
+        }
+      }
+    },
+    {
+      "id": "Q6",
+      "dimension": "style_medium",
+      "question": "画面是否带有明显的复古胶片颗粒感，且全图无任何文字、Logo 或人工水印？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "全图具有均匀明显的胶片颗粒，无文字或水印。"
+        },
+        "recon_json": {
+          "answer": "yes",
+          "note": "全图带有明显的复古胶片颗粒感，无任何文字、Logo 或水印。"
+        },
+        "recon_short": {
+          "answer": "yes",
+          "note": "全图带有明显的复古胶片颗粒感，无任何文字、Logo 或水印。"
+        }
+      }
+    },
+    {
+      "id": "Q7",
+      "dimension": "style_medium",
+      "question": "画面主体是否保留了真实手持抓拍的轻微柔焦/微糊感（而非高锐度现代数码清晰成像）？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "女孩与海浪整体带有轻微手持抓拍的柔焦与动态感。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "主体人物面部五官、牙齿、碎发丝及海面波纹均非常锐利清晰，缺乏真实手持柔焦/微糊感。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "主体女孩眼部、睫毛与卷发发丝细节锐利清晰，呈高清晰对焦状态。"
+        }
+      }
+    },
+    {
+      "id": "Q8",
+      "dimension": "composition_camera",
+      "question": "画面是否为 1:1 正方形画幅，且前景极近距离虚化双手围成中心“画中画”取景框？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "1:1 正方形画幅，前景极近距离虚化双手围成中心取景框。"
+        },
+        "recon_json": {
+          "answer": "yes",
+          "note": "1:1 正方形画幅，前景极近距离虚化双手围成中心取景框。"
+        },
+        "recon_short": {
+          "answer": "yes",
+          "note": "1:1 正方形画幅，前景极近距离虚化双手围成中心取景框。"
+        }
+      }
+    },
+    {
+      "id": "Q9",
+      "dimension": "composition_camera",
+      "question": "前景手框形态是否符合“上方斜向延伸、右侧竖直手掌边缘、下方横向伸展手指”的不规则圆角梯形结构？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "上方斜向延伸、右侧竖直掌缘、下方横向手指构成不规则圆角梯形框。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "上方左右手指在顶部聚拢交汇成倒 V 形尖顶，右侧为斜向伸展的手指而非竖直手掌边缘，整体呈五边形/尖顶屋檐状而非圆角梯形。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "上方左右手指在顶部聚拢成陡峭倒 V 形尖顶，右侧手指斜向伸展，整体呈尖顶三角形/五边形框，而非圆角梯形。"
+        }
+      }
+    },
+    {
+      "id": "Q10",
+      "dimension": "composition_camera",
+      "question": "前景手框外侧的左下角是否露出湿润沙滩与深色礁石？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "左下角手框外侧清晰露出湿润沙滩和凹凸深色礁石。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "左下角手框外侧为带白沫纹理的湿润暗色沙地浅水，未见明显的深色礁石。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "左下角手框外侧仅见浅水泡沫与暗色手掌边缘，未见深色礁石。"
+        }
+      }
+    },
+    {
+      "id": "Q11",
+      "dimension": "composition_camera",
+      "question": "前景手框外侧的右上角是否露出一小片晴朗天空及远景棕榈树剪影？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "右上角框外露出一角晴朗天空，右侧天际线边缘有微小棕榈树剪影。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "右上角手框外侧露出晴朗蓝天，但未见棕榈树剪影（唯一一棵棕榈树位于手框内部右侧海平线上）。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "右上角手框外侧仅露出一小片晴朗浅蓝天空，未见任何棕榈树剪影。"
+        }
+      }
+    },
+    {
+      "id": "Q12",
+      "dimension": "lighting_atmosphere",
+      "question": "女孩左侧长发边缘是否被阳光勾勒出明显的暖金色轮廓边缘光？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "女孩左侧发丝外缘镀有明显的暖金色侧逆光轮廓光。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "女孩左侧发丝边缘整体呈深暗色调贴合背景海面，缺乏明显的暖金色逆光轮廓边缘光。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "女孩左侧卷发在白色浪花背景前整体偏暗，缺乏明显的暖金色逆光轮廓光。"
+        }
+      }
+    },
+    {
+      "id": "Q13",
+      "dimension": "lighting_atmosphere",
+      "question": "女孩转过头的面部是否处于柔和背光阴影中（无阳光直射产生的明显亮斑）？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "女孩转过头的面部整体处于柔和均匀的背光阴影中。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "女孩额头、鼻梁与双颊受到明显阳光直射，形成较强亮区与明暗反差。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "女孩左脸颊、额头与鼻部受到强烈阳光直射形成明显亮斑，与右半侧深暗阴影形成生硬反差。"
+        }
+      }
+    },
+    {
+      "id": "Q14",
+      "dimension": "color_palette",
+      "question": "画面整体是否呈现偏暖的复古橄榄绿、琥珀褐与薄荷灰青色调？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "整体呈偏暖的复古琥珀褐、橄榄黄与灰青绿胶片色调。"
+        },
+        "recon_json": {
+          "answer": "yes",
+          "note": "整体呈现偏暖的琥珀褐暗部、暖赭黄主体与低饱和灰青绿海水天空色调。"
+        },
+        "recon_short": {
+          "answer": "yes",
+          "note": "整体呈现暖琥珀褐前景与低饱和薄荷灰青海水天空色调。"
+        }
+      }
+    },
+    {
+      "id": "Q15",
+      "dimension": "details_texture",
+      "question": "背景海面是否清晰分为两层水平浪花带（远端正上方涌浪与近景女孩腰后方宽阔白碎浪），且海天交界线位于手框内部上三分之一处？",
+      "answers": {
+        "original": {
+          "answer": "yes",
+          "note": "背景清晰呈现远端涌浪与近景宽阔白碎浪两层水平浪花带，海天交界线位于手框内上三分之一处。"
+        },
+        "recon_json": {
+          "answer": "no",
+          "note": "海天交界线位于手框内上部，但浪花集中在远端靠近海平线及女孩头肩后方的单条碎浪带，女孩腰背正后方为平静浅水波纹，未形成两层清晰分离的水平浪花带。"
+        },
+        "recon_short": {
+          "answer": "no",
+          "note": "仅见女孩肩背下方单层白色碎浪，顶部海天交界线大部分被前景手指遮挡且倾斜，未见远端第二层涌浪。"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "image": "test/eval-bench/img4_city_poster.jpg",
+  "dimensions": "576x1024",
+  "aspect_ratio": "9:16",
+  "gen_resolution": "1024x1024",
+  "compare": {
+    "recon_short": {
+      "orig": "test\\eval-bench\\img4_city_poster.jpg",
+      "gen": "test\\eval-bench\\baseline\\img4_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 4.7,
+        "midtones_pct": 28.2,
+        "highlights_pct": 67.0,
+        "mean_y": 196.0,
+        "std_dev": 66.4
+      },
+      "gen_lum": {
+        "shadows_pct": 5.1,
+        "midtones_pct": 22.4,
+        "highlights_pct": 72.5,
+        "mean_y": 203.6,
+        "std_dev": 63.7
+      },
+      "lum_delta": {
+        "shadows_delta": 0.4,
+        "midtones_delta": 5.8,
+        "highlights_delta": 5.5,
+        "mean_y_delta": 7.6,
+        "std_dev_delta": 2.7
+      },
+      "global_palette_delta_e": 4.56,
+      "spatial_mean_delta_e": 26.56,
+      "edge_structure_cosine": 0.5643,
+      "lab_cosine_similarity": 0.9003
+    },
+    "recon_json": {
+      "orig": "test\\eval-bench\\img4_city_poster.jpg",
+      "gen": "test\\eval-bench\\baseline\\img4_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 4.7,
+        "midtones_pct": 28.2,
+        "highlights_pct": 67.0,
+        "mean_y": 196.0,
+        "std_dev": 66.4
+      },
+      "gen_lum": {
+        "shadows_pct": 11.7,
+        "midtones_pct": 30.1,
+        "highlights_pct": 58.1,
+        "mean_y": 180.7,
+        "std_dev": 73.8
+      },
+      "lum_delta": {
+        "shadows_delta": 7.0,
+        "midtones_delta": 1.9,
+        "highlights_delta": 8.9,
+        "mean_y_delta": 15.3,
+        "std_dev_delta": 7.4
+      },
+      "global_palette_delta_e": 8.38,
+      "spatial_mean_delta_e": 27.74,
+      "edge_structure_cosine": 0.6317,
+      "lab_cosine_similarity": 0.8979
+    }
+  },
+  "visual_inspection": {
+    "recon_short": "整体高调明亮米白底色、钴蓝主调、蜡笔涂抹肌理、像素化相机与城市建筑/黑猫/路灯元素及展讯分栏排版均准确还原，仅主标题位置上移且改为英文。",
+    "recon_json": "结构与细节还原度极高：顶部五栏眉批、四角蓝白棋盘格图标、浅蓝方格网、蜡笔质感像素相机与瞳孔高光、左右城市建筑/路灯/高架黑猫、明黄十字星与浅蓝云、大号蓝字“城市在注视”（含“城”字内黄色块）及“THE CITY IS WATCHING”“2026.09.18 — 10.12”与底部三栏均高度一致，仅极小号中文副文有轻微笔划粘连。",
+    "swap1": {
+      "subject": "一台老式双反胶片相机与周围的珊瑚橙色热带棕榈树、夕阳海浪",
+      "verdict": "风格锁定优秀（高调米白纸面、钴蓝+珊瑚橙+明黄+翠绿配色、粗糙蜡笔肌理、蓝色粗体标题与三栏展讯排版均完整保留），但框内省略了细蓝网格线与像素方块化，且相机画成了倾斜的单反而非双反结构。"
+    },
+    "swap2": {
+      "subject": "一只戴着翠绿色耳机的机械猫与周围的赛博霓虹高楼",
+      "verdict": "风格与构图锁定良好（米白底色、浅蓝细线方格框、钴蓝+珊瑚橙+明黄+翠绿高楼配色、蜡笔排线质感与展讯底栏），机械猫与翠绿耳机主体明确，但机械猫本身偏手绘蜡笔线稿而非像素方块拼贴。"
+    }
+  }
+}

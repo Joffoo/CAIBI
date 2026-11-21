@@ -1,0 +1,8 @@
+node_modules
+.output
+.wxt
+.stats
+.env
+*.log
+test/.tmp-profile
+test/acceptance-*.png

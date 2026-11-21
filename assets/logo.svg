@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <filter id="beamGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Swiss brutalist obsidian base + 1px hairline border -->
+  <rect x="0" y="0" width="1024" height="1024" fill="#09090B" />
+  <rect x="24" y="24" width="976" height="976" fill="none" stroke="#27272A" stroke-width="6" />
+
+  <!-- Soft spectrum bloom behind exit rays -->
+  <g filter="url(#beamGlow)">
+    <line x1="362.7" y1="398.5" x2="936.0" y2="485.4" stroke="#EF4444" stroke-opacity="0.28" stroke-width="26" stroke-linecap="round" />
+    <line x1="363.5" y1="400.3" x2="936.0" y2="537.4" stroke="#EAB308" stroke-opacity="0.28" stroke-width="26" stroke-linecap="round" />
+    <line x1="364.2" y1="401.8" x2="936.0" y2="588.2" stroke="#22C55E" stroke-opacity="0.28" stroke-width="26" stroke-linecap="round" />
+    <line x1="364.8" y1="403.1" x2="936.0" y2="640.5" stroke="#06B6D4" stroke-opacity="0.28" stroke-width="26" stroke-linecap="round" />
+    <line x1="365.3" y1="404.2" x2="936.0" y2="698.2" stroke="#8B5CF6" stroke-opacity="0.28" stroke-width="26" stroke-linecap="round" />
+  </g>
+
+  <!-- Faceted C-Prism crystal facets & ridges -->
+  <polygon points="316.0,293.0 410.0,175.0 330.0,325.0" fill="#202029" />
+  <polygon points="410.0,175.0 670.0,175.0 655.0,325.0 330.0,325.0" fill="#1A1A22" />
+  <polygon points="670.0,175.0 735.0,255.0 655.0,325.0" fill="#252530" />
+  <polygon points="316.0,293.0 330.0,325.0 480.0,662.0 174.0,731.0" fill="#111117" />
+  <polygon points="174.0,731.0 480.0,662.0 275.0,835.0" fill="#16161D" />
+  <polygon points="275.0,835.0 480.0,662.0 675.0,662.0 670.0,835.0" fill="#1B1B23" />
+  <polygon points="675.0,662.0 745.0,745.0 670.0,835.0" fill="#22222C" />
+  <g>
+    <line x1="316.0" y1="293.0" x2="330.0" y2="325.0" stroke="#3F3F46" stroke-width="4" />
+    <line x1="410.0" y1="175.0" x2="330.0" y2="325.0" stroke="#3F3F46" stroke-width="4" />
+    <line x1="670.0" y1="175.0" x2="655.0" y2="325.0" stroke="#3F3F46" stroke-width="4" />
+    <line x1="174.0" y1="731.0" x2="480.0" y2="662.0" stroke="#3F3F46" stroke-width="4" />
+    <line x1="275.0" y1="835.0" x2="480.0" y2="662.0" stroke="#3F3F46" stroke-width="4" />
+    <line x1="670.0" y1="835.0" x2="675.0" y2="662.0" stroke="#3F3F46" stroke-width="4" />
+  </g>
+
+  <!-- Internal Cauchy dispersion fan (P1 -> P2) -->
+  <g>
+    <line x1="280.5" y1="402.5" x2="362.7" y2="398.5" stroke="#EF4444" stroke-opacity="0.78" stroke-width="5" stroke-linecap="round" />
+    <line x1="280.5" y1="402.5" x2="363.5" y2="400.3" stroke="#EAB308" stroke-opacity="0.78" stroke-width="5" stroke-linecap="round" />
+    <line x1="280.5" y1="402.5" x2="364.2" y2="401.8" stroke="#22C55E" stroke-opacity="0.78" stroke-width="5" stroke-linecap="round" />
+    <line x1="280.5" y1="402.5" x2="364.8" y2="403.1" stroke="#06B6D4" stroke-opacity="0.78" stroke-width="5" stroke-linecap="round" />
+    <line x1="280.5" y1="402.5" x2="365.3" y2="404.2" stroke="#8B5CF6" stroke-opacity="0.78" stroke-width="5" stroke-linecap="round" />
+  </g>
+
+  <!-- Incident white light beam (P0 -> P1) -->
+  <line x1="72.0" y1="454.5" x2="280.5" y2="402.5" stroke="#FAFAFA" stroke-opacity="0.25" stroke-width="28" stroke-linecap="round" />
+  <line x1="72.0" y1="454.5" x2="280.5" y2="402.5" stroke="#FAFAFA" stroke-width="14" stroke-linecap="round" />
+
+  <!-- Crisp crystal outline over ray intersection -->
+  <polygon points="316.0,293.0 410.0,175.0 670.0,175.0 735.0,255.0 655.0,325.0 330.0,325.0 480.0,662.0 675.0,662.0 745.0,745.0 670.0,835.0 275.0,835.0 174.0,731.0" fill="none" stroke="#FAFAFA" stroke-width="14" stroke-linejoin="miter" />
+
+  <!-- Exiting Snell-refracted 5-color spectrum beams (P2 -> P3) -->
+  <g>
+    <line x1="362.7" y1="398.5" x2="936.0" y2="485.4" stroke="#EF4444" stroke-width="11" stroke-linecap="round" />
+    <line x1="363.5" y1="400.3" x2="936.0" y2="537.4" stroke="#EAB308" stroke-width="11" stroke-linecap="round" />
+    <line x1="364.2" y1="401.8" x2="936.0" y2="588.2" stroke="#22C55E" stroke-width="11" stroke-linecap="round" />
+    <line x1="364.8" y1="403.1" x2="936.0" y2="640.5" stroke="#06B6D4" stroke-width="11" stroke-linecap="round" />
+    <line x1="365.3" y1="404.2" x2="936.0" y2="698.2" stroke="#8B5CF6" stroke-width="11" stroke-linecap="round" />
+  </g>
+
+  <!-- Refraction interface nodes -->
+  <circle cx="280.5" cy="402.5" r="9" fill="#FAFAFA" />
+  <g>
+    <circle cx="362.7" cy="398.5" r="5.5" fill="#EF4444" />
+    <circle cx="363.5" cy="400.3" r="5.5" fill="#EAB308" />
+    <circle cx="364.2" cy="401.8" r="5.5" fill="#22C55E" />
+    <circle cx="364.8" cy="403.1" r="5.5" fill="#06B6D4" />
+    <circle cx="365.3" cy="404.2" r="5.5" fill="#8B5CF6" />
+  </g>
+</svg>

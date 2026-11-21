@@ -1,0 +1,55 @@
+{
+  "image_id": "img4_city_poster",
+  "orig": "test/eval-bench/img4_city_poster.jpg",
+  "raw_json": "test/eval-bench/v2/img4_raw.json",
+  "norm_json": "test/eval-bench/v2/img4_norm.json",
+  "recon_json": {
+    "gen_path": "test/eval-bench/v2/img4_recon_json.webp",
+    "status": "generated",
+    "metrics": {
+      "orig": "test\\eval-bench\\img4_city_poster.jpg",
+      "gen": "test\\eval-bench\\v2\\img4_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 4.7,
+        "midtones_pct": 28.2,
+        "highlights_pct": 67.0,
+        "mean_y": 196.0,
+        "std_dev": 66.4
+      },
+      "gen_lum": {
+        "shadows_pct": 4.6,
+        "midtones_pct": 41.0,
+        "highlights_pct": 54.4,
+        "mean_y": 179.5,
+        "std_dev": 63.8
+      },
+      "lum_delta": {
+        "shadows_delta": 0.1,
+        "midtones_delta": 12.8,
+        "highlights_delta": 12.6,
+        "mean_y_delta": 16.5,
+        "std_dev_delta": 2.6
+      },
+      "global_palette_delta_e": 6.11,
+      "spatial_mean_delta_e": 25.6,
+      "edge_structure_cosine": 0.6374,
+      "lab_cosine_similarity": 0.9143
+    }
+  },
+  "recon_short": {
+    "gen_path": "test/eval-bench/v2/img4_recon_short.webp",
+    "status": "blocked_429_quota_exhausted",
+    "error": "429 Too Many Requests (RESOURCE_EXHAUSTED / QUOTA_EXHAUSTED on gemini-3.1-flash-image; quota resets 2026-11-18T20:03:27Z)"
+  },
+  "swap1": {
+    "gen_path": "test/eval-bench/v2/img4_swap1.webp",
+    "status": "generated",
+    "swap_subject": "一台老式双反胶片相机与周围的珊瑚橙色热带棕榈树、夕阳海浪",
+    "inspection": {
+      "style_and_layout_preserved": true,
+      "new_subject_rendered": true,
+      "original_subject_bleed": false,
+      "notes": "9:16 暖米白纸底、四层瑞士网格版面、蓝线方格网框、蜡笔斜向排线肌理及钴蓝主题色均完整保留；中央替换为双反胶片相机+珊瑚橙棕榈树+夕阳海浪，无原图高楼/路灯/黑猫残留。"
+    }
+  }
+}

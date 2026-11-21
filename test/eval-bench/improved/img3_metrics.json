@@ -1,0 +1,87 @@
+{
+  "image": "test/eval-bench/img3_lemon_can.jpg",
+  "dimensions": "576x1024",
+  "aspect_ratio": "9:16",
+  "compare_results": {
+    "img3_recon_short": {
+      "orig": "test/eval-bench/img3_lemon_can.jpg",
+      "gen": "test/eval-bench/improved/img3_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 0.0,
+        "midtones_pct": 5.0,
+        "highlights_pct": 95.0,
+        "mean_y": 231.2,
+        "std_dev": 21.5
+      },
+      "gen_lum": {
+        "shadows_pct": 3.6,
+        "midtones_pct": 16.9,
+        "highlights_pct": 79.5,
+        "mean_y": 218.1,
+        "std_dev": 51.2
+      },
+      "lum_delta": {
+        "shadows_delta": 3.6,
+        "midtones_delta": 11.9,
+        "highlights_delta": 15.5,
+        "mean_y_delta": 13.1,
+        "std_dev_delta": 29.7
+      },
+      "global_palette_delta_e": 8.4,
+      "spatial_mean_delta_e": 21.65,
+      "edge_structure_cosine": 0.43,
+      "lab_cosine_similarity": 0.9398
+    },
+    "img3_recon_json": {
+      "orig": "test/eval-bench/img3_lemon_can.jpg",
+      "gen": "test/eval-bench/improved/img3_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 0.0,
+        "midtones_pct": 5.0,
+        "highlights_pct": 95.0,
+        "mean_y": 231.2,
+        "std_dev": 21.5
+      },
+      "gen_lum": {
+        "shadows_pct": 0.4,
+        "midtones_pct": 8.6,
+        "highlights_pct": 90.9,
+        "mean_y": 218.1,
+        "std_dev": 30.1
+      },
+      "lum_delta": {
+        "shadows_delta": 0.4,
+        "midtones_delta": 3.6,
+        "highlights_delta": 4.1,
+        "mean_y_delta": 13.1,
+        "std_dev_delta": 8.6
+      },
+      "global_palette_delta_e": 5.59,
+      "spatial_mean_delta_e": 18.36,
+      "edge_structure_cosine": 0.4138,
+      "lab_cosine_similarity": 0.9607
+    }
+  },
+  "baseline_delta": {
+    "img3_recon_short": {
+      "global_palette_delta_e": "9.62 -> 8.40 (-1.22)",
+      "spatial_mean_delta_e": "20.37 -> 21.65 (+1.28)",
+      "mean_y_delta": "10.4 -> 13.1 (+2.7)",
+      "edge_structure_cosine": "0.5049 -> 0.4300 (-0.0749)",
+      "lab_cosine_similarity": "0.9521 -> 0.9398 (-0.0123)"
+    },
+    "img3_recon_json": {
+      "global_palette_delta_e": "7.11 -> 5.59 (-1.52)",
+      "spatial_mean_delta_e": "25.35 -> 18.36 (-6.99)",
+      "mean_y_delta": "19.9 -> 13.1 (-6.8)",
+      "edge_structure_cosine": "0.5144 -> 0.4138 (-0.1006)",
+      "lab_cosine_similarity": "0.9292 -> 0.9607 (+0.0315)"
+    }
+  },
+  "visual_inspection": {
+    "img3_recon_short": "2D纯平矢量波浪与圆点背景+局部写实易拉罐居中构图准确，水珠与接触影清晰，下方留白区深海蓝粗体中文标题与斜体副标版式稳定；因精简模板去除了具体英文文案与柠檬背景锚点，生成中文标题“柠檬气泡饮/越喝越有料”。",
+    "img3_recon_json": "高度还原原图：罐身柠檬切片与波点整果、凝结水珠、顶部柠檬角与绿叶（含左上方小漂浮叶）、左右裁切背景柠檬与浅蓝叶片，以及下方四层完整文案（LEMON FIZZ / Light. Bubbly. Refreshing. / 小柠檬图标与双气泡 / 真柠檬汁 ≥10% / 0脂肪·0代糖·清爽解渴）均准确复现；全局色板 Delta-E 降至 5.59、空间 Delta-E 降至 18.36、Lab 相似度升至 0.9607。",
+    "img3_swap1": "换主体成功且无柠檬残留：磨砂透明紫玻璃汽水瓶、瓶口迷迭香与紫葡萄及水珠质感准确，2D纯平矢量波浪圆环背景与下方深海蓝粗体英文大字标题+斜体标语（SERVE UP THE SODA / Taste the future of flavor.）版式保持良好；上方局部矢量色块偏深蓝。",
+    "img3_swap2": "换主体成功且无柠檬残留：方正白色草莓利乐包果汁盒、朱红草莓图案、水珠与白色吸管准确，浅蓝2D纯平波浪分隔与黄蓝圆环点缀及下方深海蓝粗体+斜体双层排版骨架稳定；1:1出图导致包装顶部略被裁切，底部大号汉字及小字存在生造笔画。"
+  }
+}

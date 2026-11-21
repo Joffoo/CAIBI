@@ -1,0 +1,71 @@
+{
+  "image": "test/eval-bench/img3_lemon_can.jpg",
+  "dimensions": "576x1024",
+  "aspect_ratio": "9:16",
+  "compare_results": {
+    "img3_recon_short": {
+      "orig": "test/eval-bench/img3_lemon_can.jpg",
+      "gen": "test/eval-bench/baseline/img3_recon_short.webp",
+      "orig_lum": {
+        "shadows_pct": 0.0,
+        "midtones_pct": 5.0,
+        "highlights_pct": 95.0,
+        "mean_y": 231.2,
+        "std_dev": 21.5
+      },
+      "gen_lum": {
+        "shadows_pct": 1.8,
+        "midtones_pct": 20.7,
+        "highlights_pct": 77.5,
+        "mean_y": 220.8,
+        "std_dev": 47.6
+      },
+      "lum_delta": {
+        "shadows_delta": 1.8,
+        "midtones_delta": 15.7,
+        "highlights_delta": 17.5,
+        "mean_y_delta": 10.4,
+        "std_dev_delta": 26.1
+      },
+      "global_palette_delta_e": 9.62,
+      "spatial_mean_delta_e": 20.37,
+      "edge_structure_cosine": 0.5049,
+      "lab_cosine_similarity": 0.9521
+    },
+    "img3_recon_json": {
+      "orig": "test/eval-bench/img3_lemon_can.jpg",
+      "gen": "test/eval-bench/baseline/img3_recon_json.webp",
+      "orig_lum": {
+        "shadows_pct": 0.0,
+        "midtones_pct": 5.0,
+        "highlights_pct": 95.0,
+        "mean_y": 231.2,
+        "std_dev": 21.5
+      },
+      "gen_lum": {
+        "shadows_pct": 0.2,
+        "midtones_pct": 13.0,
+        "highlights_pct": 86.8,
+        "mean_y": 211.3,
+        "std_dev": 32.3
+      },
+      "lum_delta": {
+        "shadows_delta": 0.2,
+        "midtones_delta": 8.0,
+        "highlights_delta": 8.2,
+        "mean_y_delta": 19.9,
+        "std_dev_delta": 10.8
+      },
+      "global_palette_delta_e": 7.11,
+      "spatial_mean_delta_e": 25.35,
+      "edge_structure_cosine": 0.5144,
+      "lab_cosine_similarity": 0.9292
+    }
+  },
+  "visual_inspection": {
+    "img3_recon_short": "高调柔光氛围、居中白罐凝结水珠、顶部柠檬片与绿叶、浅蓝扁平波浪气泡背景及下方深海蓝排版均有效还原；因 1:1 出图及精简模板未锁定背景大柠檬与具体文案，背景缺少黄色柠檬元素，罐身文字变为竖排，底部额外生成了“新游畅饮”大字。",
+    "img3_recon_json": "高度还原原图：罐身柠檬切片/整果图案位置、水珠肌理、左右背景裁切大柠檬与柠檬切片、浅蓝叶片以及底部完整四层文案（LEMON FIZZ / Light. Bubbly. Refreshing. / 小柠檬图标 / 真柠檬汁 ≥10% / 0 脂肪 · 0 代糖 · 清爽解渴）全部精准复现，全局色板 Delta-E 降至 7.11，明度分布（高光 86.8% vs 95.0%）更接近原图；仅个别小号汉字有轻微笔画畸变。",
+    "img3_swap1": "换主体成功：磨砂透明紫玻璃汽水瓶、瓶身紫葡萄插画、瓶口迷迭香与紫葡萄及表面水珠均准确生成；高调柔光、居中构图、浅蓝扁平矢量水果气泡背景及下方深海蓝标题排版风格锁定稳定。小瑕疵：背景矢量仍残留少量柑橘切片轮廓，底部大号汉字出现生造笔画。",
+    "img3_swap2": "换主体成功：方正白色草莓利乐包果汁盒、朱红草莓图案、水珠肌理及顶部白色吸管与新鲜草莓均准确生成；高调柔光、居中构图与扁平矢量背景（且自动适配为草莓插画）及下方深海蓝英文标语高度一致。小瑕疵：底部大号中文标题出现生造笔画。"
+  }
+}
